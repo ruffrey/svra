@@ -3,7 +3,7 @@ $(function(){
 	$('#tabnav a').click(function (e) {
 	  e.preventDefault();
 	  $(this).tab('show');
-	  location.hash = $(this).attr('href');
+	  history.pushState({}, $(this).text(), location.pathname + $(this).attr('href'));
 	});
 
 	if(location.hash)

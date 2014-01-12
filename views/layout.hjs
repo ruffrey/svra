@@ -17,6 +17,8 @@
 	    <hr />
 
 	    {{{yield}}}
+	    <hr />
+	    <a href="https://github.com/ruffrey/svra">source code available on GitHub</a>
 	</div>
     <!-- Latest compiled and minified JavaScript -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
