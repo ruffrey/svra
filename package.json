@@ -1,0 +1,31 @@
+{
+  "name": "svra",
+  "version": "0.0.1",
+  "description": "Shaping vocal response amplitude experiment",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ruffrey/svra"
+  },
+  "keywords": [
+    "vocal",
+    "response",
+    "amplitude",
+    "psychology",
+    "experiment"
+  ],
+  "author": "Jessica Gamba <jjgamba@gmail.com>",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/ruffrey/svra/issues"
+  },
+  "homepage": "https://github.com/ruffrey/svra",
+  "dependencies": {
+    "express": "~3.4.7",
+    "hjs": "0.0.6",
+    "hogan-express": "~0.5.2"
+  }
+}

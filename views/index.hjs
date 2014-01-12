@@ -1,0 +1,42 @@
+
+<div class="row">
+	<div class="col-md-3" id="tabnav">
+		<br />
+		<ul class="nav nav-pills nav-stacked">
+		  <li class="active"><a href="#home">Home</a></li>
+		  <li><a href="#I">I</a></li>
+		  <li><a href="#II">II</a></li>
+		  <li><a href="#III">III</a></li>
+		  <li><a href="#IV">IV</a></li>
+		</ul>
+	</div>
+	<div class="col-md-9">
+		
+		<h1>Score: <span id="score" class="label label-default">0</span></h1>
+
+		<div class="tab-content">
+		  <div class="tab-pane active" id="home">
+			<h4>Home Tab</h4>
+		  </div>
+		  <div class="tab-pane" id="I">
+		  	<h2>I</h2>
+
+		  </div>
+		  <div class="tab-pane" id="II">
+		  	<h2>II</h2>
+
+		  </div>
+		  <div class="tab-pane" id="III">
+		  	<h2>III</h2>
+
+		  </div>
+		  <div class="tab-pane" id="IV">
+		  	<h2>IV</h2>
+
+		  </div>
+		  
+		</div>
+	</div>
+
+</div>
+
