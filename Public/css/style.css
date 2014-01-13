@@ -1,1 +1,15 @@
 body { padding: 40px; }
+.tab-content{
+	border:1px solid #ccc;
+	padding: 20px;
+	min-height: 350px;
+}
+.right{ text-align: right; }
+#score{
+	font-size: 72px;
+	font-weight: 100;
+	line-height: .8;
+	display:block;
+}
+.label{ font-weight: 100;}
+.label-inverse{ background: #000; }

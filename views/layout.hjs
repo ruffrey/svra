@@ -9,20 +9,70 @@
 
     <link rel='stylesheet' href='/css/style.css' />
 
-	
+	<script>var env = "{{ config.env }}";</script>
   </head>
   <body>
   	<div class="container">
 	    <h1>{{ title }}</h1>
-	    <hr />
 
+	    <div class="row">
+			<div class="col-md-8">
+				<div id="viz">
+					<h5>SAMPLER</h5>
+	
+					<h4><span id="magnitude" class="label label-inverse">0</span></h4>
+
+					<div class="row">
+						<div class="col-md-6">
+							<canvas id="analyser" height="60px"></canvas>
+						</div>
+						<div class="col-md-6">
+							<canvas id="wavedisplay" height="60px"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<h5>CONTROLS</h5>
+				<div id="controls">
+					<button id="record" class="btn btn-success btn-xs" onclick="toggleRecording(this);">
+						<i class="glyphicon glyphicon-record"></i><br />
+						REC
+					</button>
+					<button id="save" class="btn btn-info btn-xs" onclick="saveAudio();">
+						<i class="glyphicon glyphicon-save"></i><br />
+						SAVE
+					</button>
+					<h5>BASELINE NOISE</h5>
+					<span id="room_db" class="label label-inverse">0</span>
+					<button id="calibrate" class="btn btn-info btn-xs" onclick="calibrate();">
+						<i class="glyphicon glyphicon-refresh"></i>
+					</button>
+				</div>
+			</div>
+			<div class="col-md-2">
+				
+
+				<h5>SCORE</h5>
+				<span id="score" class="label label-inverse">0</span>
+			</div>
+			
+
+	    </div>
+
+	    <hr />
 	    {{{yield}}}
+	    <hr />
+		
 	    <hr />
 	    <a href="https://github.com/ruffrey/svra">source code available on GitHub</a>
 	</div>
-    <!-- Latest compiled and minified JavaScript -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	<script src="/js/AudioContext.js"></script>
+	<script src="/js/AudioDisplay.js"></script>
+	<script src="/js/AudioRecorder.js"></script>	
+
 	<script src="/js/client.js"></script>
   </body>
 </html>

@@ -4,6 +4,7 @@
 		<br />
 		<ul class="nav nav-pills nav-stacked">
 		  <li class="active"><a href="#home">Home</a></li>
+		  <li><a href="#practice">Practice</a></li>
 		  <li><a href="#I">I</a></li>
 		  <li><a href="#II">II</a></li>
 		  <li><a href="#III">III</a></li>
@@ -11,13 +12,29 @@
 		</ul>
 	</div>
 	<div class="col-md-9">
-		
-		<h1>Score: <span id="score" class="label label-default">0</span></h1>
-
+				
 		<div class="tab-content">
+
+		  <!-- home tab -->
 		  <div class="tab-pane active" id="home">
-			<h4>Home Tab</h4>
+			<br />
+
+			<button onclick="$(this).next('audio')[0].play()"
+				class="btn btn-info btn-xs">
+				<i class="glyphicon glyphicon-play"></i>
+				<br />
+				TEST SOUND
+			</button>
+			<audio src="/audio/beep.mp3" preload="auto">
+				<p>Your browser does not support the HTML5 audio.</p>
+			</audio>
 		  </div>
+
+		  <div class="tab-pane" id="practice">
+		  	<h2>Practice</h2>
+
+		  </div>
+
 		  <div class="tab-pane" id="I">
 		  	<h2>I</h2>
 
