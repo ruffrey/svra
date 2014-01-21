@@ -11,5 +11,13 @@ body { padding: 40px; }
 	line-height: .8;
 	display:block;
 }
+#exp-score{
+	font-size: 140px;
+	font-weight: 100;
+	font-family: monospace;
+	width: 500px;
+	display:inline-block;
+}
+#exp-modal .modal-footer i{font-size: 2em;}
 .label{ font-weight: 100;}
 .label-inverse{ background: #000; }

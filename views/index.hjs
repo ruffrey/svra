@@ -19,24 +19,76 @@
 		  <div class="tab-pane active" id="home">
 			<br />
 
-			<button onclick="$(this).next('audio')[0].play()"
+			<button onclick="PlayBeep()"
 				class="btn btn-info btn-xs">
 				<i class="glyphicon glyphicon-play"></i>
 				<br />
 				TEST SOUND
 			</button>
-			<audio src="/audio/beep.mp3" preload="auto">
-				<p>Your browser does not support the HTML5 audio.</p>
+			<audio src="/audio/beep.mp3" id="beep"
+				preload="auto">
+				<p>Your browser does not support HTML5 audio.</p>
 			</audio>
+
+	
+			<button class="btn btn-inverse" onclick="ShowDataManager();">
+				Data Manager</button>
+				
+			{{> datamanager}}
+
+			<div class="row">
+				<div class="col-md-4">
+					<div id="viz">
+						<h5>SAMPLER</h5>
+						
+						<h4><span id="magnitude" class="label label-inverse">0</span></h4>
+						<canvas id="analyser" height="100px"></canvas>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<canvas id="wavedisplay" height="140px"></canvas>
+				</div>
+				<div class="col-md-3">
+					<h5>CONTROLS</h5>
+					<div id="controls">
+						<button id="record" class="btn btn-success btn-xs" onclick="toggleRecording(this);">
+							<i class="glyphicon glyphicon-record"></i><br />
+							REC
+						</button>
+						<button id="save" class="btn btn-info btn-xs" onclick="saveAudio();">
+							<i class="glyphicon glyphicon-save"></i><br />
+							SAVE
+						</button>
+						<h5>BASELINE NOISE</h5>
+						<h3 style="margin-top:0"><span id="room_db" class="label label-inverse">0</span>
+						<button id="calibrate" class="btn btn-info btn-xs" onclick="calibrate();">
+							<i class="glyphicon glyphicon-refresh"></i></h3>
+						</button>
+					</div>
+				</div>
+				<div class="col-md-2">
+					
+					<h5>LAST SCORE</h5>
+					<span id="score" class="label label-inverse">0</span>
+				</div>
+				
+
+		    </div>
+
 		  </div>
 
+			<!-- practice -->
 		  <div class="tab-pane" id="practice">
 		  	<h2>Practice</h2>
-
+			
 		  </div>
 
 		  <div class="tab-pane" id="I">
 		  	<h2>I</h2>
+
+			<button type="button" 
+				class="btn btn-info"
+				data-toggle="modal" data-target="#exp-modal">PLAY</button>
 
 		  </div>
 		  <div class="tab-pane" id="II">
@@ -57,3 +109,43 @@
 
 </div>
 
+
+
+<!-- Experiment Screen -->
+<div class="modal fade" id="exp-modal" 
+  tabindex="-1" role="dialog" 
+  style="width:100%;height:100%;top:0;"
+  data-keyboard="false"
+  aria-labelledby="exp-label" aria-hidden="true">
+
+  <div class="modal-dialog"
+  style="width:80%;height:100%;top:0;">
+    <div class="modal-content">
+      <div class="modal-header">
+<!-- 
+        <button type="button" class="close" 
+        	data-dismiss="modal" aria-hidden="true">&times;</button>
+ -->
+      </div>
+      <div class="modal-body">
+    	<br />
+    	<br />
+        
+		<h1 style="text-align: center">
+			<span class="label label-inverse" id="exp-score">0</span>
+		</h1>
+    	<br />
+    	<br />
+
+      </div>
+      <div class="modal-footer" style="text-align:center">
+        <button type="button" class="btn btn-primary" 
+        	onclick="CurrentExperiment.continue()"
+        	style="display:none" id="exp-continue"><i class="glyphicon glyphicon-play"></i><br />CONTINUE</button>
+        <button type="button" class="btn btn-info" 
+        	onclick="CurrentExperiment.pause()"
+        	id="exp-pause"><i class="glyphicon glyphicon-pause"></i><br />PAUSE</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

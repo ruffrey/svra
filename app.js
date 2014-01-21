@@ -5,7 +5,6 @@
 
 var express = require('express');
 var routes = require('./routes');
-var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var config = require('./config.js');
@@ -27,6 +26,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('hjs', require('hogan-express'));
 app.set('view engine', 'hjs');
 app.set('layout', 'layout');
+app.set('partials', {datamanager: 'datamanager'} )
 
 app.use(express.favicon());
 app.use(express.logger('dev'));
@@ -42,7 +42,6 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-// app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
