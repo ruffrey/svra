@@ -13,6 +13,7 @@
         <table id="data-table" class="table table-condensed table-striped">
           <thead>
             <tr>
+              <th>download</th>
               <th>created</th>
               <th>experiment</th>
               <th>record total</th>

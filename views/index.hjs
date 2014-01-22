@@ -25,10 +25,7 @@
 				<br />
 				TEST SOUND
 			</button>
-			<audio src="/audio/beep.mp3" id="beep"
-				preload="auto">
-				<p>Your browser does not support HTML5 audio.</p>
-			</audio>
+			
 
 	
 			<button class="btn btn-inverse" onclick="ShowDataManager();">
@@ -80,7 +77,10 @@
 			<!-- practice -->
 		  <div class="tab-pane" id="practice">
 		  	<h2>Practice</h2>
-			
+
+			<button type="button" 
+				class="btn btn-info"
+				data-toggle="modal" data-target="#exp-modal">BEGIN</button>
 		  </div>
 
 		  <div class="tab-pane" id="I">
@@ -88,7 +88,7 @@
 
 			<button type="button" 
 				class="btn btn-info"
-				data-toggle="modal" data-target="#exp-modal">PLAY</button>
+				data-toggle="modal" data-target="#exp-modal">BEGIN</button>
 
 		  </div>
 		  <div class="tab-pane" id="II">
@@ -145,6 +145,12 @@
         <button type="button" class="btn btn-info" 
         	onclick="CurrentExperiment.pause()"
         	id="exp-pause"><i class="glyphicon glyphicon-pause"></i><br />PAUSE</button>
+
+        <button type="button" class="btn btn-danger" 
+        	data-dismiss="modal" 
+        	id="exp-done"
+        	style="display:none">EXPERIMENT IS FINISHED<br /><br /><i class="glyphicon glyphicon-remove"></i><br /><br />CLOSE</button>
+
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

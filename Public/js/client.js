@@ -4,6 +4,9 @@ var LAST_UPDATE = +new Date();
 var ROOM_DB = 45;
 var calibrateOn = false;
 var calibrate_array = [];
+var captureNext = false;
+var lastCapture = null;
+var SCORE = 0;
 
 var CurrentExperiment = {
     end: function(){},
@@ -174,6 +177,7 @@ function updateAnalysers(time) {
     		LAST_UPDATE = now;
     		SetMagnitude( MaxMagnitude );
     	}
+        lastCapture = MaxMagnitude;
     }
     
     rafID = window.requestAnimationFrame( updateAnalysers );
@@ -240,7 +244,7 @@ function initAudio(callback) {
 
 
 
-function StartExperiment(expName) {
+function SwitchExperiment(expName) {
 
 	$.getScript('/js/exp/' + expName + ".js", function(script) {
 
@@ -263,7 +267,7 @@ $(function(){
 	  e.preventDefault();
 	  $(this).tab('show');
 	  history.pushState({}, $(this).text(), location.pathname + $(this).attr('href'));
-	  StartExperiment( $(this).attr('href').replace('#','') );
+	  SwitchExperiment( $(this).attr('href').replace('#','') );
 	});
 
 	if(location.hash)
@@ -289,23 +293,44 @@ $(function(){
         $(this).hide();
         $('#exp-continue').fadeIn(600);
     });
+    SetScore();
     
     $('#exp-modal').on('shown.bs.modal', function(){
-        CurrentExperiment.start();
+        StartExperiment();
     });
 
 });
+
+function StartExperiment() {
+    $('#exp-done,#exp-continue').hide();
+    $('#exp-pause').show();
+    CurrentExperiment.start();
+}
+
+function EndExperiment() {
+    $('#exp-done').fadeIn();
+    $('#exp-pause').hide();
+}
+
+function SetScore() {
+    $('#exp-score, #score')
+    .fadeTo(0, 0)
+    .text( SCORE.toString() )
+    .fadeTo(350, 1);
+}
 
 function RemoveData(row, ix) {
     store.removeExperiment(ix);
     ShowDataManager();
 }
+
 function datarow(d) {
     return '<tr>'
+        + '<td><button class="btn btn-info" onclick="DownloadData('+d.storageIndex()+');"><i class="glyphicon glyphicon-download"></i></button></td>'
         + '<td>'+d.created()+'</td>'
         + '<td>'+d.method()+'</td>'
         + '<td>'+d.records.get().length+'</td>'
-        + '<td><button onclick="RemoveData('+d.storageIndex()+');">x</button></td>'
+        + '<td><button class="btn btn-danger" onclick="RemoveData('+d.storageIndex()+');"><i class="glyphicon glyphicon-remove"></i></button></td>'
         + '</tr>';
 }
 
@@ -321,12 +346,16 @@ function ShowDataManager() {
 }
 
 function DownloadData(ix) {
-    var data = GetExperiment(ix);
 
-    var url = (window.URL || window.webkitURL).createObjectURL(data);
+    var data = store.getExperiments(ix);
+
+    var downloadData = encodeURIComponent(data.records.get().map(function(r) {
+        return r.join(',');
+    }).join('\n'));
+
     var link = window.document.createElement('a');
-    link.href = url;
-    link.download = data.experiment + data.created;
+    link.href = "data:application/octet-stream," + downloadData;
+    link.download = data.method() + ' ' + data.created() + '.csv';
     var click = document.createEvent("Event");
     click.initEvent("click", true, true);
     link.dispatchEvent(click);
@@ -335,16 +364,17 @@ function DownloadData(ix) {
 
 function IncrementScore(incr) {
     incr = incr || 1;
-    var scr = parseFloat($('#exp-score').text());
+    SCORE += incr;
 
-    $('#exp-score').fadeTo(0, 0);
-    $('#exp-score, #score').text(scr+incr);
-    $('#exp-score').fadeTo(350, 1);
+    SetScore();
 
 }
 
 function PlayBeep() {
     $('#beep')[0].play();
+}
+function PlayEndBeep() {
+    $('#end-beep')[0].play();
 }
 
 if(env=="production")

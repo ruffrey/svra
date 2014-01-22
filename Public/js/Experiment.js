@@ -10,8 +10,9 @@ var store = {
     // @returns number - the new index
     addExperiment: function (exp) {
         var unwoundRecords = JSON.parse(localStorage[__LocalStorageItemName]);
+        var newIndex = unwoundRecords.length;
+        exp.storageIndex = newIndex;
         unwoundRecords.push(exp);
-        var newIndex = unwoundRecords.length - 1;
         localStorage[__LocalStorageItemName] = JSON.stringify(unwoundRecords);
         return newIndex;
     },
@@ -22,7 +23,7 @@ var store = {
         var removed = unwoundRecords.splice(ix, 1);
 
         var clearedRecs = unwoundRecords.map(function(r, ix) {
-            r = JSON.parse(r);
+            //r = JSON.parse(r);
             r.storageIndex = ix;
             return r;
         });
@@ -97,7 +98,7 @@ function Experiment(props) {
     var _isSaved = false;
     var _isModified = false;
 
-    var allowedMethods = ["I","II","III","IV"];
+    var allowedMethods = ["practice", "I","II","III","IV"];
 
 
     /* Public methods */
@@ -112,7 +113,7 @@ function Experiment(props) {
 
 
     this.storageIndex = function(v) {
-        if(v) 
+        if(typeof v != 'undefined') 
         {
             if(typeof v != 'number')
             {
@@ -121,7 +122,7 @@ function Experiment(props) {
             _storageIndex = v;
             _isModified = true;
         }
-        return _method;
+        return _storageIndex;
     };
 
     this.method = function(v) {
@@ -173,13 +174,13 @@ function Experiment(props) {
     };
 
     this.save = function() {
-        var objToSave = JSON.stringify({
+        var objToSave = {
             created: _created,
             modified: _modified,
             records: _records,
             method: _method,
             storageIndex: _storageIndex
-        });
+        };
 
         // save a new one
         if(_storageIndex === null)
@@ -189,6 +190,7 @@ function Experiment(props) {
         else{
             store.updateExperiment(objToSave);
         }
+
         _isModified = false;
         _isSaved = true;
     };
@@ -219,6 +221,5 @@ function Experiment(props) {
         }
     }
     
-
     return this;
 };

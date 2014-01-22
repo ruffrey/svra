@@ -22,6 +22,14 @@
 		
 	    <a href="https://github.com/ruffrey/svra">source code available on GitHub</a>
 	</div>
+	<audio src="/audio/beep.mp3" id="beep"
+		preload="auto">
+		<p>Your browser does not support HTML5 audio.</p>
+	</audio>
+	<audio src="/audio/end-beep.mp3" id="end-beep"
+		preload="auto">
+		<p>Your browser does not support HTML5 audio.</p>
+	</audio>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 	<script src="/js/AudioContext.js"></script>
@@ -30,5 +38,7 @@
 
 	<script src="/js/Experiment.js"></script>
 	<script src="/js/client.js"></script>
+
+
   </body>
 </html>
