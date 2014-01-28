@@ -282,41 +282,78 @@ $(function(){
 
     $('#exp-continue').click(function() {
         // $('#exp-score').removeClass('label-default').addClass('label-inverse');
-        $('#exp-score').fadeTo(0, 1);
+        $('#exp-score')
+        .css('opacity',1)
+        .css('backgroundColor','#000000')
+        .css('color', '#ffffff');
+
         $(this).hide();
-        $('#exp-pause').show();
+        $('#exp-pause')
+        .css('opacity',0)
+        .show();
+
+        setTimeout(function(){
+            $('#exp-pause').fadeTo(1,1000);
+        }, CurrentExperiment.loopInterval || 5000);
     });
 
     $('#exp-pause').click(function() {
-        $('#exp-score').fadeTo(400, .03);
-        // $('#exp-score').addClass('label-default').removeClass('label-inverse');
+        var pause = $(this);
+
+        $('#exp-score')
+        .animate({
+            opacity: 1,
+            backgroundColor: '#f9f9f9',
+            color: '#3333FF'
+        }, 500);
+
         $(this).hide();
-        $('#exp-continue').fadeIn(600);
+        $('#exp-continue').fadeIn(400);
+
     });
+
     SetScore();
     
-    $('#exp-modal').on('shown.bs.modal', function(){
-        StartExperiment();
-    });
+    // $('#exp-modal').on('shown.bs.modal', function(){
+    //     StartExperiment();
+    // });
 
 });
 
 function StartExperiment() {
-    $('#exp-done,#exp-continue').hide();
-    $('#exp-pause').show();
+    SCORE = 0; 
+    SetScore();
+    console.log('experiment started inside StartExperiment()', new Date());
     CurrentExperiment.start();
+    
+    $('#exp-done,#exp-continue').fadeOut(200);
+    $('#exp-pause').slideDown(350);
 }
 
 function EndExperiment() {
-    $('#exp-done').fadeIn();
-    $('#exp-pause').hide();
+    $('#exp-done').fadeIn(350);
+    $('#exp-pause').hide(200);
 }
 
 function SetScore() {
     $('#exp-score, #score')
-    .fadeTo(0, 0)
-    .text( SCORE.toString() )
-    .fadeTo(350, 1);
+    .each(function(){
+
+        var origColor = $(this).css('backgroundColor');
+
+        $(this)
+        .css('backgroundColor', '#FFAD33')
+        .css('color', '#000000');
+
+        $(this).text( SCORE.toString() );
+
+        $(this).animate({
+            backgroundColor: origColor,
+            color: '#ffffff'
+        }, 600);
+
+    });
+    
 }
 
 function RemoveData(row, ix) {
@@ -326,13 +363,31 @@ function RemoveData(row, ix) {
 
 function datarow(d) {
     return '<tr>'
-        + '<td><button class="btn btn-info" onclick="DownloadData('+d.storageIndex()+');"><i class="glyphicon glyphicon-download"></i></button></td>'
-        + '<td>'+d.created()+'</td>'
-        + '<td>'+d.method()+'</td>'
-        + '<td>'+d.records.get().length+'</td>'
-        + '<td><button class="btn btn-danger" onclick="RemoveData('+d.storageIndex()+');"><i class="glyphicon glyphicon-remove"></i></button></td>'
+            + '<td><button class="btn btn-info" onclick="DownloadData('+d.storageIndex()+');"><i class="glyphicon glyphicon-download"></i></button></td>'
+            + '<td>'+d.created()+'</td>'
+            + '<td>'+d.method()+'</td>'
+            + '<td>'+(d.records.get().length-1)+'</td>'
+            + '<td><button class="btn btn-danger" onclick="RemoveData('+d.storageIndex()+');"><i class="glyphicon glyphicon-remove"></i></button></td>'
         + '</tr>';
 }
+
+
+function IncrementScore(incr) {
+
+    incr = incr || 1;
+    SCORE += incr;
+
+    SetScore();
+
+}
+
+function PlayBeep() {
+    $('#beep')[0].play();
+}
+function PlayEndBeep() {
+    $('#end-beep')[0].play();
+}
+
 
 function ShowDataManager() {
     var $tbody = $('#datamanager table#data-table tbody');
@@ -360,21 +415,6 @@ function DownloadData(ix) {
     click.initEvent("click", true, true);
     link.dispatchEvent(click);
     
-}
-
-function IncrementScore(incr) {
-    incr = incr || 1;
-    SCORE += incr;
-
-    SetScore();
-
-}
-
-function PlayBeep() {
-    $('#beep')[0].play();
-}
-function PlayEndBeep() {
-    $('#end-beep')[0].play();
 }
 
 if(env=="production")

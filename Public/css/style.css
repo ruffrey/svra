@@ -6,17 +6,20 @@ body { padding: 40px; }
 }
 .right{ text-align: right; }
 #score{
-	font-size: 72px;
+	font-size: 60px;
 	font-weight: 100;
 	line-height: .8;
 	display:block;
+	text-align: right;
+	font-family: "Helvetica Nue", Helvetica, Arial, sans-serif;
 }
 #exp-score{
 	font-size: 140px;
 	font-weight: 100;
-	font-family: monospace;
+	font-family: "Helvetica Nue", Helvetica, Arial, sans-serif;
 	width: 500px;
 	display:inline-block;
+	text-align: right;
 }
 #exp-modal .modal-footer i{font-size: 2em;}
 .label{ font-weight: 100;}

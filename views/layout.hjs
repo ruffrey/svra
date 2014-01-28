@@ -31,6 +31,7 @@
 		<p>Your browser does not support HTML5 audio.</p>
 	</audio>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/js/jquery-color.js"></script>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 	<script src="/js/AudioContext.js"></script>
 	<script src="/js/AudioDisplay.js"></script>
