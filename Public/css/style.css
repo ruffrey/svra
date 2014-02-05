@@ -22,5 +22,14 @@ body { padding: 40px; }
 	text-align: right;
 }
 #exp-modal .modal-footer i{font-size: 2em;}
+#exp-modal, .modal-content{
+  	width: 100% !important;
+    height: 100% !important;
+    margin: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
 .label{ font-weight: 100;}
 .label-inverse{ background: #000; }

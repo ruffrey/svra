@@ -19,21 +19,22 @@
 		  <div class="tab-pane active" id="home">
 			<br />
 
-			<button onclick="PlayBeep()"
-				class="btn btn-info btn-xs">
-				<i class="glyphicon glyphicon-play"></i>
-				<br />
-				TEST SOUND
-			</button>
-			
-
 	
-			<button class="btn btn-inverse" onclick="ShowDataManager();">
-				Data Manager</button>
+			<button class="btn btn-info" onclick="ShowDataManager();">
+				<i class="glyphicon glyphicon-th-list"></i>
+				<br />
+				Data Manager
+			</button>
 				
 			{{> datamanager}}
 
-			<div class="row">
+			<button class="btn btn-info" onclick="$('#secret-controls').slideToggle();">
+				<i class="glyphicon glyphicon-cog"></i>
+				<br />
+				More
+			</button>
+
+			<div class="row" id="secret-controls" style="display:none">
 				<div class="col-md-4">
 					<div id="viz">
 						<h5>SAMPLER</h5>
@@ -84,6 +85,12 @@
 				data-keyboard="false"
 				data-backdrop="false"
 				data-toggle="modal" data-target="#exp-modal">BEGIN</button>
+
+			<button onclick="PlayBeep()"
+				class="btn btn-info btn-xs">
+				<i class="glyphicon glyphicon-volume-up"></i>
+			</button>
+
 		  </div>
 
 		  <div class="tab-pane" id="I">
@@ -91,20 +98,62 @@
 
 			<button type="button" 
 				class="btn btn-info"
+				onclick="StartExperiment()"
+				data-keyboard="false"
+				data-backdrop="false"
 				data-toggle="modal" data-target="#exp-modal">BEGIN</button>
+
+			<button onclick="PlayBeep()"
+				class="btn btn-info btn-xs">
+				<i class="glyphicon glyphicon-volume-up"></i>
+			</button>
 
 		  </div>
 		  <div class="tab-pane" id="II">
 		  	<h2>II</h2>
 
+			<button type="button" 
+				class="btn btn-info"
+				onclick="StartExperiment()"
+				data-keyboard="false"
+				data-backdrop="false"
+				data-toggle="modal" data-target="#exp-modal">BEGIN</button>
+
+			<button onclick="PlayBeep()"
+				class="btn btn-info btn-xs">
+				<i class="glyphicon glyphicon-volume-up"></i>
+			</button>
 		  </div>
 		  <div class="tab-pane" id="III">
 		  	<h2>III</h2>
+			
+			<button type="button" 
+				class="btn btn-info"
+				onclick="StartExperiment()"
+				data-keyboard="false"
+				data-backdrop="false"
+				data-toggle="modal" data-target="#exp-modal">BEGIN</button>
 
+			<button onclick="PlayBeep()"
+				class="btn btn-info btn-xs">
+				<i class="glyphicon glyphicon-volume-up"></i>
+			</button>
 		  </div>
 		  <div class="tab-pane" id="IV">
 		  	<h2>IV</h2>
+			
+			<button type="button" 
+				class="btn btn-info"
+				onclick="StartExperiment()"
+				data-keyboard="false"
+				data-backdrop="false"
+				data-toggle="modal" data-target="#exp-modal">BEGIN</button>
 
+			<button onclick="PlayBeep()"
+				class="btn btn-info btn-xs">
+				<i class="glyphicon glyphicon-volume-up"></i>
+			</button>
+			
 		  </div>
 		  
 		</div>
@@ -117,12 +166,9 @@
 <!-- Experiment Screen -->
 <div class="modal fade" id="exp-modal" 
   tabindex="-1" role="dialog" 
-  style="width:100%;height:100%;top:0;"
   data-keyboard="false"
   aria-labelledby="exp-label" aria-hidden="true">
 
-  <div class="modal-dialog"
-  style="width:80%;height:100%;top:0;">
     <div class="modal-content">
       <div class="modal-header">
 <!-- 

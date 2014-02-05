@@ -263,6 +263,16 @@ function StopExperiment(expName) {
 // jQuery Init
 $(function(){
 
+    $('#exp-modal').on('shown.bs.modal', function () {
+        $(this)
+        .find('.modal-dialog')
+        .css({
+            width:'100%',
+            height:'100%', 
+            'max-height':'100%'
+        });
+    });
+
 	$('#tabnav a').click(function (e) {
 	  e.preventDefault();
 	  $(this).tab('show');
@@ -356,18 +366,21 @@ function SetScore() {
     
 }
 
-function RemoveData(row, ix) {
-    store.removeExperiment(ix);
-    ShowDataManager();
+function RemoveData(ix, recs) {
+    if(confirm('Really delete record with ' + recs + ' data points?'))
+    {
+        store.removeExperiment(ix);
+        ShowDataManager();
+    }
 }
 
 function datarow(d) {
     return '<tr>'
             + '<td><button class="btn btn-info" onclick="DownloadData('+d.storageIndex()+');"><i class="glyphicon glyphicon-download"></i></button></td>'
-            + '<td>'+d.created()+'</td>'
+            + '<td>'+d.created().toFormat('DDD MMM D, YYYY H:MI PP') + '</td>'
             + '<td>'+d.method()+'</td>'
             + '<td>'+(d.records.get().length-1)+'</td>'
-            + '<td><button class="btn btn-danger" onclick="RemoveData('+d.storageIndex()+');"><i class="glyphicon glyphicon-remove"></i></button></td>'
+            + '<td><button class="btn btn-danger" onclick="RemoveData('+d.storageIndex()+','+(d.records.get().length-1)+');"><i class="glyphicon glyphicon-remove"></i></button></td>'
         + '</tr>';
 }
 
