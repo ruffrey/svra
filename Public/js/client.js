@@ -1,7 +1,12 @@
+/**
+ *  TODO: rounding - the normal way with Math.round
+ */
+
 var MAG_INTERVAL = 500;
 var MAGNITUDE = 0;
 var LAST_UPDATE = +new Date();
 var ROOM_DB = 45;
+var WIGGLE_ROOM = 5;
 var calibrateOn = false;
 var calibrate_array = [];
 var captureNext = false;
@@ -177,7 +182,7 @@ function updateAnalysers(time) {
     		LAST_UPDATE = now;
     		SetMagnitude( MaxMagnitude );
     	}
-        lastCapture = MaxMagnitude;
+        lastCapture = Math.round(MaxMagnitude);
     }
     
     rafID = window.requestAnimationFrame( updateAnalysers );
