@@ -79,13 +79,13 @@
 				
 
 		    </div>
-
+			<div class="row">
+					<div class="col-md-12">
+						<canvas id="wavedisplay" height="140px"></canvas>
+					</div>
+			  </div>
 		  </div>
-		  <div class="row">
-				<div class="col-md-12">
-					<canvas id="wavedisplay" height="140px"></canvas>
-				</div>
-		  </div>
+		  
 
 			<!-- practice -->
 		  <div class="tab-pane" id="practice">
