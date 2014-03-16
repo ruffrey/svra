@@ -33,18 +33,20 @@
 				<br />
 				More
 			</button>
-
+	
 			<div class="row" id="secret-controls" style="display:none">
 				<div class="col-md-4">
+
+					<h4>dB <span id="decibels" class="label label-inverse">0</span></h4>
 					<div id="viz">
-						<h5>SAMPLER</h5>
-						
-						<h4><span id="magnitude" class="label label-inverse">0</span></h4>
 						<canvas id="analyser" height="100px"></canvas>
 					</div>
 				</div>
 				<div class="col-md-3">
-					<canvas id="wavedisplay" height="140px"></canvas>
+
+						
+					<h4>mag <span id="magnitude" class="label label-inverse">0</span></h4>
+
 				</div>
 				<div class="col-md-3">
 					<h5>CONTROLS</h5>
@@ -57,11 +59,16 @@
 							<i class="glyphicon glyphicon-save"></i><br />
 							SAVE
 						</button>
-						<h5>BASELINE NOISE</h5>
-						<h3 style="margin-top:0"><span id="room_db" class="label label-inverse">0</span>
-						<button id="calibrate" class="btn btn-info btn-xs" onclick="calibrate();">
-							<i class="glyphicon glyphicon-refresh"></i></h3>
-						</button>
+						<h5>BASELINE</h5>
+						<h4 style="margin-top:0">
+							db <span id="room_db" class="label label-inverse">0</span>
+						</h4>
+						<h4>
+							mag <span id="room_mag" class="label label-inverse">0</span>
+							<button id="calibrate" class="btn btn-info btn-xs" onclick="calibrate();">
+								<i class="glyphicon glyphicon-refresh"></i>
+							</button>
+						</h4>
 					</div>
 				</div>
 				<div class="col-md-2">
@@ -73,6 +80,11 @@
 
 		    </div>
 
+		  </div>
+		  <div class="row">
+				<div class="col-md-12">
+					<canvas id="wavedisplay" height="140px"></canvas>
+				</div>
 		  </div>
 
 			<!-- practice -->

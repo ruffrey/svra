@@ -2,12 +2,12 @@
 <html>
   <head>
     <!-- <title>{{ title }}</title> -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
 
 	<!-- Optional theme -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
 
-    <link rel='stylesheet' href='/css/style.css' />
+    <link rel='stylesheet' href='css/style.css' />
 
 	<script>var env = "{{ config.env }}";</script>
   </head>
@@ -19,25 +19,26 @@
 		
 	    <!-- <a href="https://github.com/ruffrey/svra">source code available on GitHub</a> -->
 	</div>
-	<audio src="/audio/beep.mp3" id="beep"
+	<audio src="audio/beep.mp3" id="beep"
 		preload="auto">
 		<p>Your browser does not support HTML5 audio.</p>
 	</audio>
-	<audio src="/audio/end-beep.mp3" id="end-beep"
+	<audio src="audio/end-beep.mp3" id="end-beep"
 		preload="auto">
 		<p>Your browser does not support HTML5 audio.</p>
 	</audio>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="/js/jquery-color.js"></script>
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-	<script src="/js/weighted-list.js"></script>
-	<script src="/js/date-utils.js"></script>
-	<script src="/js/AudioContext.js"></script>
-	<script src="/js/AudioDisplay.js"></script>
-	<script src="/js/AudioRecorder.js"></script>	
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="js/jquery-color.js"></script>
+	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	<script src="js/weighted-list.js"></script>
+	<script src="js/date-utils.js"></script>
+	<script src="js/AudioContext.js"></script>
+	<script src="js/AudioDisplay.js"></script>
+	<script src="js/AudioRecorder.js"></script>	
 
-	<script src="/js/Experiment.js"></script>
-	<script src="/js/client.js"></script>
+	<script src="js/Experiment.js"></script>
+	<script src="js/client.js"></script>
+	<script src="js/ui-interactions.js"></script>
 
 
   </body>

@@ -1,36 +1,48 @@
 /**
- *  TODO: rounding - the normal way with Math.round
+ * Client audio app
  */
 
-var MAG_INTERVAL = 500;
-var MAGNITUDE = 0;
-var LAST_UPDATE = +new Date();
-var ROOM_DB = 45;
-var WIGGLE_ROOM = 5;
-var calibrateOn = false;
-var calibrate_array = [];
-var captureNext = false;
-var lastCapture = null;
-var SCORE = 0;
+    /** How often to update the UI */
+var MAG_INTERVAL = 350,
+    /** Last time the UI was updated with the current dB */
+    LAST_UPDATE = +new Date(),
+    /** The last captured dB of loudness, near-instantly captured */
+    lastCapture = null,
+    /** The last captured magnitude of loudness */
+    lastMag = null,
+    /** Base room magnitude noise */
+    ROOM_MAG = 75,
+    ROOM_DB = 45,
+    /** Hmm... */
+    WIGGLE_ROOM = 5,
+    /** Is calibrate() running? */
+    calibrateOn = false,
+    /** Used when calibrate() is running to track the dB values */
+    calibrate_array = [],
+    captureNext = false,
+    /** The last/current score for the experiment */
+    SCORE = 0,
 
-var CurrentExperiment = {
-    end: function(){},
-    start: function(){},
-    pause: function(){},
-    continue: function(){}
-};
+    CurrentExperiment = {
+        end: function(){},
+        start: function(){},
+        pause: function(){},
+        continue: function(){}
+    };
 
-function SetMagnitude(m) {
+function SetUiDecibels(d, m) {
+    $('span#decibels').text(d.toFixed(2));
     $('span#magnitude').text(m.toFixed(2));
     if(calibrateOn) calibrate_array.push(m);
 }
 function calibrate() {
 
     console.log("RECALIBRATION START");
-    clearRoomDB();
+    clearRoomMag();
 	calibrateOn = true;
 
 	$('#calibrate').attr('disabled','disabled');
+
 	setTimeout(function(){
 		calibrateOn = false;
 
@@ -42,7 +54,7 @@ function calibrate() {
 		
 		var avg = tot/calibrate_array.length;
 		
-		setRoomDB(avg);
+		setRoomMag(avg);
 
 		console.log('RECALIBRATION END', calibrate_array);
 		calibrate_array = [];
@@ -53,33 +65,40 @@ function calibrate() {
 
 }
 
-function log10(val) {
-  return Math.log(val) / Math.LN10;
-}
+/**
+ * Calculate Decibels
+ */
+function Decibels(amplitude, refDB) {
 
-function Decibels(amplitude) {
+    var log10 = function(val) { return Math.log(val) / Math.LN10; };
+
+    if(refDB) return 20 * log10(amplitude/refDB);
+
+    // return 20 * log10(amplitude/ROOM_DB);
     return 20 * log10(amplitude);
 }
 
-function setRoomDB(db) {
-	ROOM_DB = db;
-	$('#room_db').text(db.toFixed(2));
+function setRoomMag(val) {
+	ROOM_MAG = val;
+    ROOM_DB = Decibels(ROOM_MAG);
+    $('#room_mag').text(ROOM_MAG.toFixed(2));
+	$('#room_db').text(ROOM_DB.toFixed(2));
 }
 
-function clearRoomDB() {
-    $('#room_db').text('----');
+function clearRoomMag() {
+    $('#room_mag').text('----');
 }
 
 
-var audioContext = new AudioContext();
-var audioInput = null,
+var audioContext = new AudioContext(),
+    audioInput = null,
     realAudioInput = null,
     inputPoint = null,
-    audioRecorder = null;
-var rafID = null;
-var analyserContext = null;
-var canvasWidth, canvasHeight;
-var recIndex = 0;
+    audioRecorder = null,
+    rafID = null,
+    analyserContext = null,
+    canvasWidth, canvasHeight,
+    recIndex = 0;
 
 function saveAudio() {
     audioRecorder.exportWAV( doneEncoding );
@@ -135,6 +154,9 @@ function cancelAnalyserUpdates() {
     rafID = null;
 }
 
+/**
+ * Main method for checking audio magnitude.
+ */
 function updateAnalysers(time) {
     if (!analyserContext) 
     {
@@ -168,7 +190,7 @@ function updateAnalysers(time) {
             for (var j = 0; j< multiplier; j++)
                 magnitude += freqByteData[offset + j];
             // magnitude = magnitude / multiplier;
-            magnitude = Decibels(magnitude / multiplier);
+            magnitude = magnitude / multiplier;
             var magnitude2 = freqByteData[i * multiplier];
             analyserContext.fillStyle = "hsl( " + Math.round((i*360)/numBars) + ", 100%, 50%)";
             analyserContext.fillRect(i * SPACING, canvasHeight, BAR_WIDTH, -magnitude);
@@ -176,13 +198,18 @@ function updateAnalysers(time) {
             if(magnitude > MaxMagnitude) MaxMagnitude = magnitude+0;
         }
     	
-    	var now = +new Date();
-    	if( (now - LAST_UPDATE) > MAG_INTERVAL ) 
+        // see if we need to capture magnitude value
+    	var now = +new Date(),
+            sinceLastUpdate = now - LAST_UPDATE,
+            dbValue = Decibels(MaxMagnitude);
+
+    	if( sinceLastUpdate > MAG_INTERVAL ) 
     	{
     		LAST_UPDATE = now;
-    		SetMagnitude( MaxMagnitude );
+    		SetUiDecibels( dbValue, MaxMagnitude );
     	}
-        lastCapture = Math.round(MaxMagnitude);
+        lastCapture = Math.round(dbValue);
+        lastMag = Math.round(MaxMagnitude);
     }
     
     rafID = window.requestAnimationFrame( updateAnalysers );
@@ -247,197 +274,3 @@ function initAudio(callback) {
     );
 }
 
-
-
-function SwitchExperiment(expName) {
-
-	$.getScript('/js/exp/' + expName + ".js", function(script) {
-
-	}).error(function(){
-		alert('Error loading experiment: ' + expName);
-	});
-
-	$('#tabnav a').attr('disabled', 'disabled');
-
-}
-
-function StopExperiment(expName) {
-	$('#tabnav a').removeAttr('disabled');
-}
-
-// jQuery Init
-$(function(){
-
-    $('#exp-modal').on('shown.bs.modal', function () {
-        $(this)
-        .find('.modal-dialog')
-        .css({
-            width:'100%',
-            height:'100%', 
-            'max-height':'100%'
-        });
-    });
-
-	$('#tabnav a').click(function (e) {
-	  e.preventDefault();
-	  $(this).tab('show');
-	  history.pushState({}, $(this).text(), location.pathname + $(this).attr('href'));
-	  SwitchExperiment( $(this).attr('href').replace('#','') );
-	});
-
-	if(location.hash)
-	{
-		$('a[href="' + location.hash + '"]').click();
-	}
-
-	initAudio(function(){
-        calibrate();
-    });
-
-
-    $('#exp-continue').click(function() {
-        // $('#exp-score').removeClass('label-default').addClass('label-inverse');
-        $('#exp-score')
-        .css('opacity',1)
-        .css('backgroundColor','#000000')
-        .css('color', '#ffffff');
-
-        $(this).hide();
-        $('#exp-pause')
-        .css('opacity',0)
-        .show();
-
-        setTimeout(function(){
-            $('#exp-pause').fadeTo(1,1000);
-        }, CurrentExperiment.loopInterval || 5000);
-    });
-
-    $('#exp-pause').click(function() {
-        var pause = $(this);
-
-        $('#exp-score')
-        .animate({
-            opacity: 1,
-            backgroundColor: '#f9f9f9',
-            color: '#3333FF'
-        }, 500);
-
-        $(this).hide();
-        $('#exp-continue').fadeIn(400);
-
-    });
-
-    SetScore();
-    
-    // $('#exp-modal').on('shown.bs.modal', function(){
-    //     StartExperiment();
-    // });
-
-});
-
-function StartExperiment() {
-    SCORE = 0; 
-    SetScore();
-    console.log('experiment started inside StartExperiment()', new Date());
-    CurrentExperiment.start();
-    
-    $('#exp-done,#exp-continue').fadeOut(200);
-    $('#exp-pause').slideDown(350);
-}
-
-function EndExperiment() {
-    $('#exp-done').fadeIn(350);
-    $('#exp-pause').hide(200);
-}
-
-function SetScore() {
-    $('#exp-score, #score')
-    .each(function(){
-
-        var origColor = $(this).css('backgroundColor');
-
-        $(this)
-        .css('backgroundColor', '#FFAD33')
-        .css('color', '#000000');
-
-        $(this).text( SCORE.toString() );
-
-        $(this).animate({
-            backgroundColor: origColor,
-            color: '#ffffff'
-        }, 600);
-
-    });
-    
-}
-
-function RemoveData(ix, recs) {
-    if(confirm('Really delete record with ' + recs + ' data points?'))
-    {
-        store.removeExperiment(ix);
-        ShowDataManager();
-    }
-}
-
-function datarow(d) {
-    return '<tr>'
-            + '<td><button class="btn btn-info" onclick="DownloadData('+d.storageIndex()+');"><i class="glyphicon glyphicon-download"></i></button></td>'
-            + '<td>'+d.created().toFormat('DDD MMM D, YYYY H:MI PP') + '</td>'
-            + '<td>'+d.method()+'</td>'
-            + '<td>'+(d.records.get().length-1)+'</td>'
-            + '<td><button class="btn btn-danger" onclick="RemoveData('+d.storageIndex()+','+(d.records.get().length-1)+');"><i class="glyphicon glyphicon-remove"></i></button></td>'
-        + '</tr>';
-}
-
-
-function IncrementScore(incr) {
-
-    incr = incr || 1;
-    SCORE += incr;
-
-    SetScore();
-
-}
-
-function PlayBeep() {
-    $('#beep')[0].play();
-}
-function PlayEndBeep() {
-    $('#end-beep')[0].play();
-}
-
-
-function ShowDataManager() {
-    var $tbody = $('#datamanager table#data-table tbody');
-
-    var allRecords = store.getExperiments();
-    var rowhtml = allRecords.map(datarow).join('');
-
-    $tbody.empty().append( rowhtml );
-
-    $('#datamanager').modal('show');
-}
-
-function DownloadData(ix) {
-
-    var data = store.getExperiments(ix);
-
-    var downloadData = encodeURIComponent(data.records.get().map(function(r) {
-        return r.join(',');
-    }).join('\n'));
-
-    var link = window.document.createElement('a');
-    link.href = "data:application/octet-stream," + downloadData;
-    link.download = data.method() + ' ' + data.created() + '.csv';
-    var click = document.createEvent("Event");
-    click.initEvent("click", true, true);
-    link.dispatchEvent(click);
-    
-}
-
-if(env=="production")
-{
-	window.onbeforeunload = function() {
-		return "Careful when refreshing the page!";
-	}
-}
