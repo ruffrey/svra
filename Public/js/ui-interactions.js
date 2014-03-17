@@ -114,7 +114,7 @@ function SetScore() {
         $(this).animate({
             backgroundColor: origColor,
             color: '#ffffff'
-        }, 600);
+        }, 800);
 
     });
     

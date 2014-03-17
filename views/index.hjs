@@ -17,9 +17,8 @@
 
 		  <!-- home tab -->
 		  <div class="tab-pane active" id="home">
-			<br />
+		  	<h2>Home</h2>
 
-	
 			<button class="btn btn-info" onclick="ShowDataManager();">
 				<i class="glyphicon glyphicon-th-list"></i>
 				<br />
@@ -28,10 +27,7 @@
 				
 			{{> datamanager}}
 
-			<button class="btn btn-info" onclick="$('#secret-controls').slideToggle();">
-				<i class="glyphicon glyphicon-cog"></i>
-				<br />
-				More
+			<button class="btn btn-info" onclick="$('#secret-controls').fadeToggle();"><i class="glyphicon glyphicon-cog"></i><br />More
 			</button>
 	
 			<div class="row" id="secret-controls" style="display:none">
@@ -96,7 +92,8 @@
 				onclick="StartExperiment()"
 				data-keyboard="false"
 				data-backdrop="false"
-				data-toggle="modal" data-target="#exp-modal">BEGIN</button>
+				data-toggle="modal" data-target="#exp-modal">
+				<i class="glyphicon glyphicon-play"></i><br />BEGIN</button>
 
 			<button onclick="PlayBeep()"
 				class="btn btn-info btn-xs">
@@ -113,7 +110,8 @@
 				onclick="StartExperiment()"
 				data-keyboard="false"
 				data-backdrop="false"
-				data-toggle="modal" data-target="#exp-modal">BEGIN</button>
+				data-toggle="modal" data-target="#exp-modal">
+				<i class="glyphicon glyphicon-play"></i><br />BEGIN</button>
 
 			<button onclick="PlayBeep()"
 				class="btn btn-info btn-xs">
@@ -129,7 +127,8 @@
 				onclick="StartExperiment()"
 				data-keyboard="false"
 				data-backdrop="false"
-				data-toggle="modal" data-target="#exp-modal">BEGIN</button>
+				data-toggle="modal" data-target="#exp-modal">
+				<i class="glyphicon glyphicon-play"></i><br />BEGIN</button>
 
 			<button onclick="PlayBeep()"
 				class="btn btn-info btn-xs">
@@ -144,7 +143,8 @@
 				onclick="StartExperiment()"
 				data-keyboard="false"
 				data-backdrop="false"
-				data-toggle="modal" data-target="#exp-modal">BEGIN</button>
+				data-toggle="modal" data-target="#exp-modal">
+				<i class="glyphicon glyphicon-play"></i><br />BEGIN</button>
 
 			<button onclick="PlayBeep()"
 				class="btn btn-info btn-xs">
@@ -159,7 +159,8 @@
 				onclick="StartExperiment()"
 				data-keyboard="false"
 				data-backdrop="false"
-				data-toggle="modal" data-target="#exp-modal">BEGIN</button>
+				data-toggle="modal" data-target="#exp-modal">
+				<i class="glyphicon glyphicon-play"></i><br />BEGIN</button>
 
 			<button onclick="PlayBeep()"
 				class="btn btn-info btn-xs">

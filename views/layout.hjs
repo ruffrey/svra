@@ -2,10 +2,11 @@
 <html>
   <head>
     <!-- <title>{{ title }}</title> -->
-	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+	<!-- <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"> -->
+	<link rel="stylesheet" href="css/bootstrap.css">
 
 	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+	<!-- <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css"> -->
 
     <link rel='stylesheet' href='css/style.css' />
 
