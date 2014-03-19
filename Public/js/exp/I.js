@@ -8,6 +8,18 @@ CurrentExperiment = {
      */
 
     /**
+     * The first row of data output.
+     */
+    recordHeader: [
+        "ms since start of experiment",
+        "interval value (magnitude)",
+        "loudest 5th of last 19",
+        "point total",
+        "pause time",
+        "extinction"
+    ],
+
+    /**
      * How many miliseconds you want a single interval to last.
      */
     loopInterval: 5000,
@@ -69,6 +81,11 @@ CurrentExperiment = {
     /** First portion of experiment */
     loudestOverFirstPortion: 0,
 
+    /** How many records back are used for the comparison? */
+    comparisonRecordTotal: 19,
+
+    /** When comparison records are sorted DESC, what is the index to use as a comparitor? */
+    comparisonIndex: 4,
 
     /**
      * ## The internal probability table to be used to determine whether to do an increment.
@@ -91,9 +108,10 @@ CurrentExperiment = {
 
         CurrentExperiment.timeout = setTimeout(function(){
             // var twoMinutes = 10* 1000;
-            var twoMinutes = 60 * 2 * 1000;
-            var timeSinceLastCheck = (+new Date()) - CurrentExperiment.lastTime;
-            var currentIntervalLoudest = CurrentExperiment.intervalLoudest + 0;
+            var twoMinutes = 60 * 2 * 1000,
+                timeSinceLastCheck = (+new Date()) - CurrentExperiment.lastTime,
+                currentIntervalLoudest = CurrentExperiment.intervalLoudest + 0;
+
             // reset interval loudest for the next interval
             CurrentExperiment.intervalLoudest = 0;
 
@@ -109,11 +127,11 @@ CurrentExperiment = {
                 (CurrentExperiment.totalTime/1000), 'seconds');
 
             /** when applicable, loudest value of the last 19 intervals */
-            var intervalValue5 = null,
-                last19records = null,
+            var intervalValueForComparison = null,
+                lastXrecords = null,
             // get a copy of the current records, except for the first one which is the header
-                indexOfIntervalValue = 2,
                 indexOfMagnitudeValue = 1,
+
                 sortByLoudest = function(a, b) {
                     // always compare numbers to numbers, in case value is null
                     var a_interval = a[indexOfMagnitudeValue] || 0,
@@ -127,17 +145,20 @@ CurrentExperiment = {
 
 
             // What is the loudest interval value?
-            if(currentRecs.length > 19)
+            if(currentRecs.length > CurrentExperiment.comparisonRecordTotal)
             {
-                last19records = currentRecs.slice(0, 19);
-                intervalValue5 = last19records[4][indexOfMagnitudeValue];
+                lastXrecords = currentRecs.slice(-CurrentExperiment.comparisonRecordTotal).sort(sortByLoudest);
+                console.log('comparing against set', lastXrecords);
+                var recordForComparison = lastXrecords[CurrentExperiment.comparisonIndex];
+                console.log('comparing against record', recordForComparison);
+                intervalValueForComparison = recordForComparison[indexOfMagnitudeValue];
             }
             console.log('Adding new record, number', currentRecs.length+1);
             // Save the data
             var newDataRec = [ 
                 CurrentExperiment.totalTime, 
                 currentIntervalLoudest, 
-                intervalValue5, 
+                intervalValueForComparison, 
                 SCORE, 
                 pauseTotal || null,
                 CurrentExperiment.extinction
@@ -145,7 +166,7 @@ CurrentExperiment = {
             CurrentExperiment.data.records.add(newDataRec);
             CurrentExperiment.data.save();
             // Update current recs
-            currentRecs = CurrentExperiment.data.records.get().slice(1).sort(sortByLoudest);
+            currentRecs = CurrentExperiment.data.records.get().slice(1);
 
 
             // See if extinction is active
@@ -208,23 +229,23 @@ CurrentExperiment = {
             else{
                 console.log("Two minutes have passed.");
                
-                if(intervalValue5 < currentIntervalLoudest)
+                if(intervalValueForComparison < currentIntervalLoudest)
                 {
-                    console.log('Was louder than 5th highest of last 19. 5th:', intervalValue5, 'is less than current:', currentIntervalLoudest);
+                    console.log('Was louder than 5th highest of last 19. intervalValueForComparison:', intervalValueForComparison, 'is less than current:', currentIntervalLoudest);
 
                     shouldPlayAndIncrement = true;
                 }
                 // highly unlikely it will be equal, but hey what the hell
-                else if(intervalValue5 == currentIntervalLoudest)
+                else if(intervalValueForComparison == currentIntervalLoudest)
                 {
-                    console.log('Was equal to the 5th highest of last 19.', intervalValue5, '==', currentIntervalLoudest);
+                    console.log('Was equal to the intervalValueForComparison highest of last 19.', intervalValueForComparison, '==', currentIntervalLoudest);
                     shouldPlayAndIncrement = JSON.parse(wl.peek()[0]);
                     console.log('Probability used to determine score. Yield is', shouldPlayAndIncrement);
                 }
                 // if it's not getting louder, beep should not play or increment
                 else{
-                    console.log('Not enough louder to give a score. 5th:',
-                        intervalValue5, 'is greater than current:',
+                    console.log('Not enough louder to give a score. intervalValueForComparison:',
+                        intervalValueForComparison, 'is greater than current:',
                         currentIntervalLoudest);
                 }
             }
@@ -360,14 +381,7 @@ CurrentExperiment = {
             method: "I"
         });
         
-        CurrentExperiment.data.records.add([
-            "ms since start of experiment",
-            "interval value (magnitude)",
-            "loudest 5th of last 19",
-            "point total",
-            "pause time",
-            "extinction"
-        ]);
+        CurrentExperiment.data.records.add(CurrentExperiment.recordHeader);
         CurrentExperiment.data.save();
 
         // Now Start
