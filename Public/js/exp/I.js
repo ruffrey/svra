@@ -54,6 +54,9 @@ CurrentExperiment = {
     /** How much louder does participant need to be before starting extinction? */
     extinctionMultiplier: 1.5,
 
+    /** An override max for how loud the participant needs to be before starting extinction. */
+    extinctionMaxMagnitude: 300,
+
     /** Quiet time total */
     quietTotal: 0,
 
@@ -87,6 +90,8 @@ CurrentExperiment = {
 
 
         CurrentExperiment.timeout = setTimeout(function(){
+            // var twoMinutes = 10* 1000;
+            var twoMinutes = 60 * 2 * 1000;
             var timeSinceLastCheck = (+new Date()) - CurrentExperiment.lastTime;
             var currentIntervalLoudest = CurrentExperiment.intervalLoudest + 0;
             // reset interval loudest for the next interval
@@ -105,8 +110,8 @@ CurrentExperiment = {
 
             /** when applicable, loudest value of the last 19 intervals */
             var intervalValue5 = null,
+                last19records = null,
             // get a copy of the current records, except for the first one which is the header
-                currentRecs = CurrentExperiment.data.records.get().slice(1),
                 indexOfIntervalValue = 2,
                 indexOfMagnitudeValue = 1,
                 sortByLoudest = function(a, b) {
@@ -117,16 +122,15 @@ CurrentExperiment = {
                     if(a_interval > b_interval) return -1;
                     if(a_interval < b_interval) return 1;
                     return 0;
-                };
+                },
+                currentRecs = CurrentExperiment.data.records.get().slice(1); // dont sort yet
 
-            // sorted by highest decibel
-            currentRecs.sort( sortByLoudest );
-            console.log(currentRecs);
+
             // What is the loudest interval value?
             if(currentRecs.length > 19)
             {
-                var last19records = currentRecs.slice(0, 19);
-                intervalValue5 = last19records[14][indexOfMagnitudeValue];
+                last19records = currentRecs.slice(0, 19);
+                intervalValue5 = last19records[4][indexOfMagnitudeValue];
             }
             console.log('Adding new record, number', currentRecs.length+1);
             // Save the data
@@ -140,6 +144,8 @@ CurrentExperiment = {
             ];
             CurrentExperiment.data.records.add(newDataRec);
             CurrentExperiment.data.save();
+            // Update current recs
+            currentRecs = CurrentExperiment.data.records.get().slice(1).sort(sortByLoudest);
 
 
             // See if extinction is active
@@ -187,12 +193,10 @@ CurrentExperiment = {
              * Determining whether to play the sound and increment the score.
              * If two minutes have passed, follow logic for portion 2 of the experiment. Otherwise, it is portion 1 logic.
              */
-            // var twoMinutesHavePassed = (10 * 1000) <= CurrentExperiment.totalTime;
-            var twoMinutesHavePassed = (60 * 1000 * 2) <= CurrentExperiment.totalTime;
 
-            // set up
-            var wl = new WeightedList(CurrentExperiment.probabilityData);
-            var shouldPlayAndIncrement = false;
+            var twoMinutesHavePassed = twoMinutes <= CurrentExperiment.totalTime,
+                wl = new WeightedList(CurrentExperiment.probabilityData),
+                shouldPlayAndIncrement = false;
 
             // portion 1
             if(!twoMinutesHavePassed)
@@ -203,28 +207,24 @@ CurrentExperiment = {
             // portion 2
             else{
                 console.log("Two minutes have passed.");
-                var _5thLoudest = currentRecs.length > 5 
-                    ? currentRecs[4][indexOfMagnitudeValue]
-                    : currentRecs[currentRecs.length-1][indexOfMagnitudeValue];
-
-                
-                if(_5thLoudest < currentIntervalLoudest)
+               
+                if(intervalValue5 < currentIntervalLoudest)
                 {
-                    console.log('Was louder than 5th highest of last 19.', _5thLoudest, '<', currentIntervalLoudest);
+                    console.log('Was louder than 5th highest of last 19. 5th:', intervalValue5, 'is less than current:', currentIntervalLoudest);
 
                     shouldPlayAndIncrement = true;
                 }
                 // highly unlikely it will be equal, but hey what the hell
-                else if(_5thLoudest == currentIntervalLoudest)
+                else if(intervalValue5 == currentIntervalLoudest)
                 {
-                    console.log('Was equal to the 15th highest of last 19.', _5thLoudest, '==', currentIntervalLoudest);
+                    console.log('Was equal to the 5th highest of last 19.', intervalValue5, '==', currentIntervalLoudest);
                     shouldPlayAndIncrement = JSON.parse(wl.peek()[0]);
                     console.log('Probability used to determine score. Yield is', shouldPlayAndIncrement);
                 }
                 // if it's not getting louder, beep should not play or increment
                 else{
-                    console.log('Not enough louder to give a score.',
-                        _5thLoudest, '>',
+                    console.log('Not enough louder to give a score. 5th:',
+                        intervalValue5, 'is greater than current:',
                         currentIntervalLoudest);
                 }
             }
@@ -244,8 +244,6 @@ CurrentExperiment = {
             var firstPortionLoudest = 0,
                 loudnessCutoffForExinction = 0,
                 loudnessHasSufficientlyIncreased = false,
-                // twoMinutes = 10 * 1000,
-                twoMinutes = 60 * 2 * 1000,
                 firstPortionRecs = [];
             /**
              * Gather the records from under 2 minutes.
@@ -267,7 +265,11 @@ CurrentExperiment = {
             }
 
             /** Set the cutoff point for switching to extinction. */
-            loudnessCutoffForExinction = firstPortionLoudest * CurrentExperiment.extinctionMultiplier;
+            loudnessCutoffForExinction = Math.min(
+                firstPortionLoudest * CurrentExperiment.extinctionMultiplier,
+                CurrentExperiment.extinctionMaxMagnitude
+            );
+
             if(currentRecs.length > 15)
             {
                 loudnessHasSufficientlyIncreased = loudnessCutoffForExinction <= ( currentIntervalLoudest || 0);
@@ -293,7 +295,7 @@ CurrentExperiment = {
                 CurrentExperiment.end();
             }
             else{
-                console.log("Looping. Not loud enough for extinction yet. Cutoff:", loudnessCutoffForExinction)
+                console.log("Looping. Not loud enough for extinction yet. Extinction at:", loudnessCutoffForExinction)
                 CurrentExperiment.loop();
             }
 
