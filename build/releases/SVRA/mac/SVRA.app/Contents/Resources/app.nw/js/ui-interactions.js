@@ -1,6 +1,6 @@
 function SwitchExperiment(expName) {
 
-    $.getScript('/js/exp/' + expName + ".js", function(script) {
+    $.getScript('js/exp/' + expName + ".js", function(script) {
 
     }).error(function(){
         alert('Error loading experiment: ' + expName);
@@ -114,7 +114,7 @@ function SetScore() {
         $(this).animate({
             backgroundColor: origColor,
             color: '#ffffff'
-        }, 600);
+        }, 800);
 
     });
     

@@ -1,15 +1,17 @@
+<!DOCTYPE HTML>
 <html><head>
     <!-- <title>Shaping Vocal Response Amplitudes</title> -->
-	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+	<!-- <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"> -->
+	<link rel="stylesheet" href="css/bootstrap.css">
 
 	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+	<!-- <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css"> -->
 
     <link rel="stylesheet" href="css/style.css">
 
 	<script>var env = "development";</script>
   </head>
-  <body style="">
+  <body class="modal-open" style="">
   	<div class="container">
 
 	    
@@ -17,12 +19,12 @@
 	<div class="col-md-3" id="tabnav">
 		<br>
 		<ul class="nav nav-pills nav-stacked">
-		  <li class="active"><a href="#home">Home</a></li>
-		  <li><a href="#practice">Practice</a></li>
-		  <li><a href="#I">I</a></li>
-		  <li><a href="#II">II</a></li>
-		  <li><a href="#III">III</a></li>
-		  <li><a href="#IV">IV</a></li>
+		  <li class=""><a href="#home" disabled="disabled">Home</a></li>
+		  <li><a href="#practice" disabled="disabled">Practice</a></li>
+		  <li class="active"><a href="#I" disabled="disabled">I</a></li>
+		  <li><a href="#II" disabled="disabled">II</a></li>
+		  <li><a href="#III" disabled="disabled">III</a></li>
+		  <li><a href="#IV" disabled="disabled">IV</a></li>
 		</ul>
 	</div>
 	<div class="col-md-9">
@@ -30,10 +32,9 @@
 		<div class="tab-content">
 
 		  <!-- home tab -->
-		  <div class="tab-pane active" id="home">
-			<br>
+		  <div class="tab-pane" id="home">
+		  	<h2>Home</h2>
 
-	
 			<button class="btn btn-info" onclick="ShowDataManager();">
 				<i class="glyphicon glyphicon-th-list"></i>
 				<br>
@@ -41,7 +42,7 @@
 			</button>
 				
 			<!-- Modal -->
-			<div class="modal fade" id="datamanager" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal fade" id="datamanager" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
 			
 			  <div class="modal-dialog">
 			    <div class="modal-content">
@@ -63,29 +64,28 @@
 			          <tbody></tbody>
 			        </table>
 			      </div>
-			      <div class="modal-footer">
+			      <!-- <div class="modal-footer">
 			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			      </div>
+			      </div> -->
 			    </div><!-- /.modal-content -->
 			  </div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->
-			<button class="btn btn-info" onclick="$('#secret-controls').slideToggle();">
-				<i class="glyphicon glyphicon-cog"></i>
-				<br>
-				More
+			<button class="btn btn-info" onclick="$('#secret-controls').fadeToggle();"><i class="glyphicon glyphicon-cog"></i><br>More
 			</button>
-
-			<div class="row" id="secret-controls" style="display:none">
+	
+			<div class="row" id="secret-controls" style="">
 				<div class="col-md-4">
+
+					<h4>dB <span id="decibels" class="label label-inverse">36.78</span></h4>
 					<div id="viz">
-						<h5>SAMPLER<br>(decibels)</h5>
-						
-						<h4><span id="decibels" class="label label-inverse">4.74</span></h4>
 						<canvas id="analyser" height="100px"></canvas>
 					</div>
 				</div>
 				<div class="col-md-3">
-					<canvas id="wavedisplay" height="140px"></canvas>
+
+						
+					<h4>mag <span id="magnitude" class="label label-inverse">69.04</span></h4>
+
 				</div>
 				<div class="col-md-3">
 					<h5>CONTROLS</h5>
@@ -98,29 +98,40 @@
 							<i class="glyphicon glyphicon-save"></i><br>
 							SAVE
 						</button>
-						<h5>BASELINE NOISE<br>(magnitude)</h5>
-						<h3 style="margin-top:0"><span id="room_mag" class="label label-inverse">----</span>
-						<button id="calibrate" class="btn btn-info btn-xs" onclick="calibrate();" disabled="disabled">
-							<i class="glyphicon glyphicon-refresh"></i></button></h3>
-						
+						<h5>BASELINE</h5>
+						<h4 style="margin-top:0">
+							db <span id="room_db" class="label label-inverse">36.63</span>
+						</h4>
+						<h4>
+							mag <span id="room_mag" class="label label-inverse">67.85</span>
+							<button id="calibrate" class="btn btn-info btn-xs" onclick="calibrate();">
+								<i class="glyphicon glyphicon-refresh"></i>
+							</button>
+						</h4>
 					</div>
 				</div>
 				<div class="col-md-2">
 					
 					<h5>LAST SCORE</h5>
-					<span id="score" class="label label-inverse" style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);">0</span>
+					<span id="score" class="label label-inverse" style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);">5</span>
 				</div>
 				
 
 		    </div>
-
+			<div class="row">
+					<div class="col-md-12">
+						<canvas id="wavedisplay" height="140px"></canvas>
+					</div>
+			  </div>
 		  </div>
+		  
 
 			<!-- practice -->
 		  <div class="tab-pane" id="practice">
 		  	<h2>Practice</h2>
 
-			<button type="button" class="btn btn-info" onclick="StartExperiment()" data-keyboard="false" data-backdrop="false" data-toggle="modal" data-target="#exp-modal">BEGIN</button>
+			<button type="button" class="btn btn-info" onclick="StartExperiment()" data-keyboard="false" data-backdrop="false" data-toggle="modal" data-target="#exp-modal">
+				<i class="glyphicon glyphicon-play"></i><br>BEGIN</button>
 
 			<button onclick="PlayBeep()" class="btn btn-info btn-xs">
 				<i class="glyphicon glyphicon-volume-up"></i>
@@ -128,10 +139,11 @@
 
 		  </div>
 
-		  <div class="tab-pane" id="I">
+		  <div class="tab-pane active" id="I">
 		  	<h2>I</h2>
 
-			<button type="button" class="btn btn-info" onclick="StartExperiment()" data-keyboard="false" data-backdrop="false" data-toggle="modal" data-target="#exp-modal">BEGIN</button>
+			<button type="button" class="btn btn-info" onclick="StartExperiment()" data-keyboard="false" data-backdrop="false" data-toggle="modal" data-target="#exp-modal">
+				<i class="glyphicon glyphicon-play"></i><br>BEGIN</button>
 
 			<button onclick="PlayBeep()" class="btn btn-info btn-xs">
 				<i class="glyphicon glyphicon-volume-up"></i>
@@ -141,7 +153,8 @@
 		  <div class="tab-pane" id="II">
 		  	<h2>II</h2>
 
-			<button type="button" class="btn btn-info" onclick="StartExperiment()" data-keyboard="false" data-backdrop="false" data-toggle="modal" data-target="#exp-modal">BEGIN</button>
+			<button type="button" class="btn btn-info" onclick="StartExperiment()" data-keyboard="false" data-backdrop="false" data-toggle="modal" data-target="#exp-modal">
+				<i class="glyphicon glyphicon-play"></i><br>BEGIN</button>
 
 			<button onclick="PlayBeep()" class="btn btn-info btn-xs">
 				<i class="glyphicon glyphicon-volume-up"></i>
@@ -150,7 +163,8 @@
 		  <div class="tab-pane" id="III">
 		  	<h2>III</h2>
 			
-			<button type="button" class="btn btn-info" onclick="StartExperiment()" data-keyboard="false" data-backdrop="false" data-toggle="modal" data-target="#exp-modal">BEGIN</button>
+			<button type="button" class="btn btn-info" onclick="StartExperiment()" data-keyboard="false" data-backdrop="false" data-toggle="modal" data-target="#exp-modal">
+				<i class="glyphicon glyphicon-play"></i><br>BEGIN</button>
 
 			<button onclick="PlayBeep()" class="btn btn-info btn-xs">
 				<i class="glyphicon glyphicon-volume-up"></i>
@@ -159,7 +173,8 @@
 		  <div class="tab-pane" id="IV">
 		  	<h2>IV</h2>
 			
-			<button type="button" class="btn btn-info" onclick="StartExperiment()" data-keyboard="false" data-backdrop="false" data-toggle="modal" data-target="#exp-modal">BEGIN</button>
+			<button type="button" class="btn btn-info" onclick="StartExperiment()" data-keyboard="false" data-backdrop="false" data-toggle="modal" data-target="#exp-modal">
+				<i class="glyphicon glyphicon-play"></i><br>BEGIN</button>
 
 			<button onclick="PlayBeep()" class="btn btn-info btn-xs">
 				<i class="glyphicon glyphicon-volume-up"></i>
@@ -175,7 +190,7 @@
 
 
 <!-- Experiment Screen -->
-<div class="modal fade" id="exp-modal" tabindex="-1" role="dialog" data-keyboard="false" aria-labelledby="exp-label" aria-hidden="true">
+<div class="modal fade in" id="exp-modal" tabindex="-1" role="dialog" data-keyboard="false" aria-labelledby="exp-label" aria-hidden="false" style="display: block;">
 
     <div class="modal-content">
       <div class="modal-header">
@@ -189,7 +204,7 @@
     	<br>
         
 		<h1 style="text-align: center">
-			<span class="label label-inverse" id="exp-score" style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);">0</span>
+			<span class="label label-inverse" id="exp-score" style="background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);">5</span>
 		</h1>
     	<br>
     	<br>
@@ -197,7 +212,7 @@
       </div>
       <div class="modal-footer" style="text-align:center">
         <button type="button" class="btn btn-primary" onclick="CurrentExperiment.continue()" style="display:none" id="exp-continue"><i class="glyphicon glyphicon-play"></i><br>CONTINUE</button>
-        <button type="button" class="btn btn-info" onclick="CurrentExperiment.pause()" id="exp-pause"><i class="glyphicon glyphicon-pause"></i><br>PAUSE</button>
+        <button type="button" class="btn btn-info" onclick="CurrentExperiment.pause()" id="exp-pause" style=""><i class="glyphicon glyphicon-pause"></i><br>PAUSE</button>
 
         <button type="button" class="btn btn-danger" data-dismiss="modal" id="exp-done" style="display:none">EXPERIMENT IS FINISHED<br><br><i class="glyphicon glyphicon-remove"></i><br><br>CLOSE</button>
 

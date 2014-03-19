@@ -3,13 +3,16 @@
  */
 
     /** How often to update the UI */
-var MAG_INTERVAL = 250,
+var MAG_INTERVAL = 350,
     /** Last time the UI was updated with the current dB */
     LAST_UPDATE = +new Date(),
     /** The last captured dB of loudness, near-instantly captured */
     lastCapture = null,
-    /** Base room decibels */
-    ROOM_MAG = 45,
+    /** The last captured magnitude of loudness */
+    lastMag = null,
+    /** Base room magnitude noise */
+    ROOM_MAG = 75,
+    ROOM_DB = 45,
     /** Hmm... */
     WIGGLE_ROOM = 5,
     /** Is calibrate() running? */
@@ -27,8 +30,9 @@ var MAG_INTERVAL = 250,
         continue: function(){}
     };
 
-function SetUiDecibels(m) {
-    $('span#decibels').text(m.toFixed(2));
+function SetUiDecibels(d, m) {
+    $('span#decibels').text(d.toFixed(2));
+    $('span#magnitude').text(m.toFixed(2));
     if(calibrateOn) calibrate_array.push(m);
 }
 function calibrate() {
@@ -61,18 +65,24 @@ function calibrate() {
 
 }
 
-function Decibels(amplitude, ref) {
+/**
+ * Calculate Decibels
+ */
+function Decibels(amplitude, refDB) {
 
     var log10 = function(val) { return Math.log(val) / Math.LN10; };
 
-    if(ref) return 20 * log10(amplitude/ref);
+    if(refDB) return 20 * log10(amplitude/refDB);
 
-    return 20 * log10(amplitude/ROOM_MAG);
+    // return 20 * log10(amplitude/ROOM_DB);
+    return 20 * log10(amplitude);
 }
 
-function setRoomMag(db) {
-	ROOM_MAG = db;
-	$('#room_mag').text(db.toFixed(2));
+function setRoomMag(val) {
+	ROOM_MAG = val;
+    ROOM_DB = Decibels(ROOM_MAG);
+    $('#room_mag').text(ROOM_MAG.toFixed(2));
+	$('#room_db').text(ROOM_DB.toFixed(2));
 }
 
 function clearRoomMag() {
@@ -196,9 +206,10 @@ function updateAnalysers(time) {
     	if( sinceLastUpdate > MAG_INTERVAL ) 
     	{
     		LAST_UPDATE = now;
-    		SetUiDecibels( dbValue );
+    		SetUiDecibels( dbValue, MaxMagnitude );
     	}
         lastCapture = Math.round(dbValue);
+        lastMag = Math.round(MaxMagnitude);
     }
     
     rafID = window.requestAnimationFrame( updateAnalysers );
@@ -263,3 +274,35 @@ function initAudio(callback) {
     );
 }
 
+
+
+if (!Array.prototype.map)
+{
+  Array.prototype.map = function(fun /*, thisArg */)
+  {
+    "use strict";
+
+    if (this === void 0 || this === null)
+      throw new TypeError();
+
+    var t = Object(this);
+    var len = t.length >>> 0;
+    if (typeof fun !== "function")
+      throw new TypeError();
+
+    var res = new Array(len);
+    var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
+    for (var i = 0; i < len; i++)
+    {
+      // NOTE: Absolute correctness would demand Object.defineProperty
+      //       be used.  But this method is fairly new, and failure is
+      //       possible only if Object.prototype or Array.prototype
+      //       has a property |i| (very unlikely), so use a less-correct
+      //       but more portable alternative.
+      if (i in t)
+        res[i] = fun.call(thisArg, t[i], i, t);
+    }
+
+    return res;
+  };
+}

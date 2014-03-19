@@ -64,7 +64,7 @@ CurrentExperiment = {
     extinctionTime: 0,
 
     /** How much louder does participant need to be before starting extinction? */
-    extinctionMultiplier: 1.5,
+    extinctionMultiplier: 1.2,
 
     /** An override max for how loud the participant needs to be before starting extinction. */
     extinctionMaxMagnitude: 300,
@@ -165,9 +165,8 @@ CurrentExperiment = {
             ];
             CurrentExperiment.data.records.add(newDataRec);
             CurrentExperiment.data.save();
-            // Update current recs
-            currentRecs = CurrentExperiment.data.records.get().slice(1);
-
+            // then update current recs
+            currentRecs = CurrentExperiment.data.records.get().slice(1)
 
             // See if extinction is active
             if(CurrentExperiment.extinction)
@@ -262,38 +261,43 @@ CurrentExperiment = {
              * Portion 1 is over. Everything else applies only to portion 2.
              */
 
-            var firstPortionLoudest = 0,
+            var firstPortionTotal = 0,
+                firstPortionAverage = 0,
                 loudnessCutoffForExinction = 0,
                 loudnessHasSufficientlyIncreased = false,
-                firstPortionRecs = [];
+                firstPortionRecs = [],
+                valuesToDetermineExtinction = currentRecs
+                                                .slice( -3 )
+                                                .map(function(rec){
+                                                    return rec[indexOfMagnitudeValue];
+                                                }); // 3 values
             /**
              * Gather the records from under 2 minutes.
              */
             $.each(currentRecs, function(i, _record){
-                if(_record[0] >= twoMinutes) firstPortionRecs.push(_record);
+                if(_record[0] <= twoMinutes)
+                {
+                    firstPortionRecs.push(_record);
+                    firstPortionTotal += _record[indexOfMagnitudeValue];
+                }
             });
 
-            /** Find the loudest from the first two minutes. */
-            for(var i = 0, _record = null; i < firstPortionRecs.length; i++)
-            {
-                _record = firstPortionRecs[i];
-
-                var thisIntervalMagnitude = _record[indexOfMagnitudeValue];
-
-                if(thisIntervalMagnitude > firstPortionLoudest)
-                    firstPortionLoudest = thisIntervalMagnitude;
-
-            }
+           firstPortionAverage = firstPortionTotal / firstPortionRecs.length;
 
             /** Set the cutoff point for switching to extinction. */
             loudnessCutoffForExinction = Math.min(
-                firstPortionLoudest * CurrentExperiment.extinctionMultiplier,
+                firstPortionAverage * CurrentExperiment.extinctionMultiplier,
                 CurrentExperiment.extinctionMaxMagnitude
             );
 
             if(currentRecs.length > 15)
             {
-                loudnessHasSufficientlyIncreased = loudnessCutoffForExinction <= ( currentIntervalLoudest || 0);
+                var isGreater = 0;
+                $.each(valuesToDetermineExtinction, function(i, _magnitude){
+                    if(_magnitude > loudnessCutoffForExinction) isGreater++;
+                });
+
+                loudnessHasSufficientlyIncreased = isGreater == valuesToDetermineExtinction.length;
             }
 
 
@@ -302,7 +306,7 @@ CurrentExperiment = {
              */
             if(twoMinutesHavePassed && loudnessHasSufficientlyIncreased)
             {
-                console.log("Starting Extinction because: twoMinutesHavePassed and loudnessHasSufficientlyIncreased", loudnessCutoffForExinction, 'mag to', currentIntervalLoudest, 'mag');
+                console.log("Starting Extinction because: twoMinutesHavePassed and loudnessHasSufficientlyIncreased", loudnessCutoffForExinction, 'mag to', valuesToDetermineExtinction);
 
                 CurrentExperiment.extinction = true;
                 CurrentExperiment.extinctionTime = 0;
@@ -316,7 +320,7 @@ CurrentExperiment = {
                 CurrentExperiment.end();
             }
             else{
-                console.log("Looping. Not loud enough for extinction yet. Extinction at:", loudnessCutoffForExinction)
+                console.log("Looping. Not loud enough for extinction yet. Extinction at:", loudnessCutoffForExinction, 'values are', valuesToDetermineExtinction);
                 CurrentExperiment.loop();
             }
 
