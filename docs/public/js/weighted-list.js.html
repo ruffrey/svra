@@ -1,0 +1,423 @@
+<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width" charset="utf-8"><title>SVRA docs</title><!-- Foundation CSS--><link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/foundation/4.1.6/css/foundation.min.css"><!-- Prism CSS--><style type="text/css">/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', monospace;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #a67f59;
+	background: hsla(0,0%,100%,.5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+
+.token.regex,
+.token.important {
+	color: #e90;
+}
+
+.token.important {
+	font-weight: bold;
+}
+
+.token.entity {
+	cursor: help;
+}
+</style><!-- Custom Styles--><style type="text/css">h1.page-title small {
+  font-weight: 400;
+}
+/*.section-container, .section-container .section .title
+  border-color #e6e6e6*/
+#nav .section.active {
+  padding-top: 0 !important;
+}
+#nav .section.active .title {
+  background: #ddd;
+}
+#nav .section .title {
+  background-color: #eee;
+}
+#nav .section .title a {
+  font-weight: 700;
+  padding: 0.6em;
+}
+#nav .section .title a small {
+  font-size: 0.8em;
+  line-height: 1em;
+  display: block;
+  color: #888;
+  margin: 2px 0 -2px;
+}
+#nav .section .title:hover {
+  background: #ddd;
+}
+#nav ul.solo {
+  border-top: 1px solid #ccc;
+  padding: 0.875em;
+}
+code {
+  background: transparent;
+  line-height: 1.3em;
+  font-weight: normal;
+}
+.comment {
+  position: relative;
+  padding-bottom: 1.5em;
+  margin-bottom: 2em;
+  border-bottom: 1px solid #ddd;
+}
+.comment ol,
+.comment ul {
+  margin-left: 2.25em;
+}
+.comment ol.no-bullet,
+.comment ul.no-bullet {
+  margin-left: 0;
+}
+.comment header {
+  margin-bottom: 1.5em;
+}
+.comment header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.2em;
+}
+.comment .section-container,
+.comment .section-container > .section > .content {
+  border: none;
+}
+.comment .section-container > .section > .title {
+  padding: auto;
+  background: none !important;
+  border: none !important;
+}
+.comment .section-container > .section > .title a {
+  border-radius: 4px;
+  font-weight: 700;
+  padding: 1px 10px 1px 0;
+  margin-right: 5px;
+  color: #ccc;
+}
+.comment .section-container > .section:hover .title a {
+  color: #999;
+}
+.comment .section-container > .section.active .title a {
+  color: #2ba6cb;
+}
+.comment .section-container > .section > .content {
+  padding: 0.9em 0 0;
+}
+.comment div.description h2 {
+  font-size: 1.2em;
+}
+.comment .tags span {
+  margin-right: 4px;
+}
+.comment .tags .name,
+.comment .tags .type {
+  font-weight: 700;
+}
+.comment .tags .types {
+  color: #666;
+}
+.comment .tags .description {
+  margin-left: 15px;
+}
+.ctx-type {
+  margin-right: 6px;
+  font-size: 0.7em;
+}
+</style><script srr="http://cdnjs.cloudflare.com/ajax/libs/foundation/4.1.6/js/vendor/custom.modernizr.js"></script></head><body><div class="row"><div class="small-12 columns"><h1 class="page-title">SVRA docs<small> public/js/weighted-list.js</small></h1></div></div><div class="row"><div id="nav" class="large-3 columns"><div data-section="accordian" data-options="" class="section-container accordian"><div class="section"><p data-section-title class="title"><a href="../../../docs/public/js/AudioContext.js.html"><small>public/js/</small>AudioContext.js</a></p><div data-section-content class="content"><ul class="side-nav"></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../docs/public/js/AudioDisplay.js.html"><small>public/js/</small>AudioDisplay.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../docs/public/js/AudioDisplay.js.html#drawBuffer">drawBuffer</a></li></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../docs/public/js/AudioRecorder.js.html"><small>public/js/</small>AudioRecorder.js</a></p><div data-section-content class="content"><ul class="side-nav"></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../docs/public/js/Experiment.js.html"><small>public/js/</small>Experiment.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../docs/public/js/Experiment.js.html#_method">_method</a></li><li><a href="../../../docs/public/js/Experiment.js.html#_isSaved">_isSaved</a></li></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../docs/public/js/RecorderWorker.js.html"><small>public/js/</small>RecorderWorker.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../docs/public/js/RecorderWorker.js.html#recLength">recLength</a></li></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../docs/public/js/client.js.html"><small>public/js/</small>client.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../docs/public/js/client.js.html#MAG_INTERVAL">MAG_INTERVAL</a></li><li><a href="../../../docs/public/js/client.js.html#Decibels">Decibels</a></li><li><a href="../../../docs/public/js/client.js.html#updateAnalysers">updateAnalysers</a></li></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../docs/public/js/date-utils.js.html"><small>public/js/</small>date-utils.js</a></p><div data-section-content class="content"><ul class="side-nav"></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../docs/public/js/exp/I.js.html"><small>public/js/exp/</small>I.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../docs/public/js/exp/I.js.html#intervalValueForComparison">intervalValueForComparison</a></li><li><a href="../../../docs/public/js/exp/I.js.html#twoMinutesHavePassed">twoMinutesHavePassed</a></li><li><a href="../../../docs/public/js/exp/I.js.html#firstPortionTotal">firstPortionTotal</a></li></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../docs/public/js/exp/II.js.html"><small>public/js/exp/</small>II.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../docs/public/js/exp/II.js.html#intervalValueForComparison">intervalValueForComparison</a></li><li><a href="../../../docs/public/js/exp/II.js.html#twoMinutesHavePassed">twoMinutesHavePassed</a></li><li><a href="../../../docs/public/js/exp/II.js.html#firstPortionTotal">firstPortionTotal</a></li></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../docs/public/js/exp/III.js.html"><small>public/js/exp/</small>III.js</a></p><div data-section-content class="content"><ul class="side-nav"></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../docs/public/js/exp/IV.js.html"><small>public/js/exp/</small>IV.js</a></p><div data-section-content class="content"><ul class="side-nav"></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../docs/public/js/exp/home.js.html"><small>public/js/exp/</small>home.js</a></p><div data-section-content class="content"><ul class="side-nav"></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../docs/public/js/exp/practice.js.html"><small>public/js/exp/</small>practice.js</a></p><div data-section-content class="content"><ul class="side-nav"></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../docs/public/js/exp/I.js.html"><small>public/js/exp/</small>I.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../docs/public/js/exp/I.js.html#intervalValueForComparison">intervalValueForComparison</a></li><li><a href="../../../docs/public/js/exp/I.js.html#twoMinutesHavePassed">twoMinutesHavePassed</a></li><li><a href="../../../docs/public/js/exp/I.js.html#firstPortionTotal">firstPortionTotal</a></li></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../docs/public/js/exp/II.js.html"><small>public/js/exp/</small>II.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../docs/public/js/exp/II.js.html#intervalValueForComparison">intervalValueForComparison</a></li><li><a href="../../../docs/public/js/exp/II.js.html#twoMinutesHavePassed">twoMinutesHavePassed</a></li><li><a href="../../../docs/public/js/exp/II.js.html#firstPortionTotal">firstPortionTotal</a></li></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../docs/public/js/exp/III.js.html"><small>public/js/exp/</small>III.js</a></p><div data-section-content class="content"><ul class="side-nav"></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../docs/public/js/exp/IV.js.html"><small>public/js/exp/</small>IV.js</a></p><div data-section-content class="content"><ul class="side-nav"></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../docs/public/js/exp/home.js.html"><small>public/js/exp/</small>home.js</a></p><div data-section-content class="content"><ul class="side-nav"></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../docs/public/js/exp/practice.js.html"><small>public/js/exp/</small>practice.js</a></p><div data-section-content class="content"><ul class="side-nav"></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../docs/public/js/ui-interactions.js.html"><small>public/js/</small>ui-interactions.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../docs/public/js/ui-interactions.js.html#SwitchExperiment">SwitchExperiment</a></li></ul></div></div><div class="section active"><p data-section-title class="title"><a href="../../../docs/public/js/weighted-list.js.html"><small>public/js/</small>weighted-list.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../docs/public/js/weighted-list.js.html#WeightedList">WeightedList</a></li><li><a href="../../../docs/public/js/weighted-list.js.html#_HeapNode">_HeapNode</a></li><li><a href="../../../docs/public/js/weighted-list.js.html#_WeightedHeap">_WeightedHeap</a></li></ul></div></div></div></div><div class="small-12 large-9 columns"><article class="comment"><header><h1 id="WeightedList">WeightedList</h1><h5 class="subheader"><div class="label radius ctx-type">declaration</div>WeightedList</h5></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>js-weighted-list.js</p>
+
+<p>version 0.2</p>
+
+<p>This file is licensed under the MIT License, please see MIT-LICENSE.txt for details.</p>
+
+<p><a href='https://github.com/timgilbert/js-weighted-list'>https://github.com/timgilbert/js-weighted-list</a> is its home.</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">var WeightedList = (function() {
+
+  function _WeightedList(initial) { 
+    this.weights = {};
+    this.data = {};
+    this.length = 0;
+    this.hasData = false;
+
+    initial = typeof initial !== 'undefined' ? initial : [];
+
+    if (Array.isArray(initial)) {
+      for (var i = 0; i &lt; initial.length; i++) {
+        //var item = initial[i];
+        //this.push(item[0], item[1], item[2]);
+        this.push(initial[i]);
+      }
+    } else {
+      throw new Error('Unknown object &quot;' + initial.toString() + '&quot; passed to ' + 
+                      'WeightedList constructor! (Expected array or nothing)');
+    }
+  }
+
+  _WeightedList.prototype = {</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Add a single item to the list.  The parameter passed in represents a single <br />key, with a weight and optionally some data attached.</p>
+
+<p>The parameter to this function can either be a 2-3 element array of <br />[k, w, d] for key, weight and data (data is optional) or an object with the <br />values {'key': k, 'weight': w, 'data': d} where d is optional.</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">push: function(element) {
+      var key, weight, data;
+
+      if (Array.isArray(element)) {
+        key = element[0], weight = element[1], data = element[2];
+        if (typeof key === 'undefined') {
+          // Eg, wl.push([])
+          throw new Error('In WeightedList.push([ ... ]), need at least two elements');
+        } else if (typeof weight === 'undefined') {
+          // I suppose we could default to 1 here, but the API is already too forgiving
+          throw new Error('In array passed to WeightedList.push([ ... ]), second ' + 
+                          'element is undefined!');
+        }
+      } else if (typeof element === 'object') {
+        // We expect {&quot;key&quot;: &quot;zombies&quot;, &quot;weight&quot;: 10, &quot;data&quot;: {&quot;fast&quot;: true}}
+        key = element.key, weight = element.weight, data = element.data;
+        if (typeof key === 'undefined') {
+          throw new Error(&quot;In WeightedList.push({ ... }), no {'key': 'xyzzy'} pair found&quot;);
+        } else if (typeof weight === 'undefined') {
+          // I suppose we could default to 1 here, but the API is already too forgiving
+          throw new Error('In array passed to WeightedList.push({ ... }), no ' + 
+                          &quot;{'weight': 42} pair found&quot;);
+        }
+    } else {
+        // else what the heck were you trying to give me?
+        throw new Error('WeightedList.push() passed unknown type &quot;' + typeof element + 
+                        '&quot;, expected [key, weight] or {&quot;key&quot;: k, &quot;weight&quot;: w}');
+      }
+      return this._push_values(key, weight, data);
+
+    },</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"><li class="tag"><span class="type">@access: </span><span class="string">private</span></li><li class="tag"><span class="type">@param: </span><span class="types">{String}</span><span class="name">key</span><span class="description">the key under which this item is stored</span></li><li class="tag"><span class="type">@param: </span><span class="types">{number}</span><span class="name">weight</span><span class="description">the weight to assign to this key</span></li><li class="tag"><span class="type">@param: </span><span class="types">{?Object}</span><span class="name">data</span><span class="description">any optional data associated wth this key</span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Add an item to the list</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">_push_values: function(key, weight, data) {
+      //console.debug('k:', key, 'w:', weight, 'd:', data);
+
+      if (this.weights[key]) {
+        throw new Error('');
+      }
+      if (typeof weight !== typeof 1) {
+        throw new Error('Weight must be numeric (got ' + weight.toString() + ')');
+      }
+      if (weight &lt;= 0)  {
+        throw new Error('Weight must be &gt;= 0 (got ' + weight + ')');
+      }
+
+      this.weights[key] = weight;
+
+      if (typeof data !== 'undefined') {
+        this.hasData = true;
+        this.data[key] = data;
+      }
+      this.length++;
+    },</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"><li class="tag"><span class="type">@todo: </span><span class="string">might be nice to have a version of this that would throw an error </span></li><li class="tag"><span class="type">@: </span><span class="string">on an unknown key.</span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Add the given weight to the list item with the given key.  Note that if <br />the key does not already exist, this operation will silently create it.</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">addWeight: function(key, weight) {
+      this.weights[key] += weight;
+    },</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Select n random elements (without replacement), default 1.<br />If andRemove is true (default false), remove the elements<br />from the list.  (This is what the pop() method does.)</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">peek: function(n, andRemove) {
+      if (typeof n === 'undefined') {
+        n = 1;
+      }
+      andRemove = !!andRemove;
+
+      if (this.length - n &lt; 0) {
+        throw new Error('Stack underflow! Tried to retrieve ' + n + 
+                        ' element' + (n === 1 ? '' : 's') + 
+                        ' from a list of ' + this.length);
+      }
+
+      var heap = this._buildWeightedHeap();
+      //console.debug('heap:', heap);
+      var result = [];
+      
+      for (var i = 0; i &lt; n; i++) {
+        var key = heap.pop();
+        //console.debug('k:', key);
+        if (this.hasData) {
+          result.push({key: key, data: this.data[key]});
+        } else {
+          result.push(key);
+        }
+        if (andRemove) {
+          delete this.weights[key];
+          delete this.data[key];
+          this.length--;
+        }
+      }
+      return result;
+    },</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Return the entire list in a random order (note that this does not mutate the list)</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">shuffle: function() {
+      return this.peek(this.length);
+    },</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">pop: function(n) {
+      return this.peek(n, true);
+    },</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Build a WeightedHeap instance based on the data we've got</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">_buildWeightedHeap: function() {
+      var items = [];
+      for (var key in this.weights) if (this.weights.hasOwnProperty(key)) {
+        items.push([key, this.weights[key]]);
+      }
+      //console.log('items',items);
+      return new _WeightedHeap(items);
+    }
+  };</code></pre></div></div></div></article><article class="comment"><header><h1 id="_HeapNode">_HeapNode</h1><h5 class="subheader"><div class="label radius ctx-type">function</div>_HeapNode()</h5></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>This is a javascript implementation of the algorithm described by <br />Jason Orendorff here: <a href='http://stackoverflow.com/a/2149533/87990'>http://stackoverflow.com/a/2149533/87990</a></p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">function _HeapNode(weight, value, total) {
+    this.weight = weight;
+    this.value = value;
+    this.total = total;  // Total weight of this node and its children
+  }</code></pre></div></div></div></article><article class="comment"><header><h1 id="_WeightedHeap">_WeightedHeap</h1><h5 class="subheader"><div class="label radius ctx-type">function</div>_WeightedHeap()</h5></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Note, we're using a heap structure here for its tree properties, not as a <br />classic binary heap. A node heap[i] has children at heap[i&lt;&lt;1] and at <br />heap[(i&lt;&lt;1)+1]. Its parent is at h[i>>1]. Heap[0] is vacant.</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">function _WeightedHeap(items) {
+    this.heap = [null];   // Math is easier to read if we index array from 1
+    
+    // First put everything on the heap 
+    for (var i = 0; i &lt; items.length; i++) {
+      var weight = items[i][1];
+      var value = items[i][0];
+      this.heap.push(new _HeapNode(weight, value, weight));
+    }
+    // Now go through the heap and add each node's weight to its parent
+    for (i = this.heap.length - 1; i &gt; 1; i--) {
+      this.heap[i&gt;&gt;1].total += this.heap[i].total;
+    }
+    //console.debug('_Wh heap', this.heap);
+  }
+
+  _WeightedHeap.prototype = {
+    pop: function() {
+      // Start with a random amount of gas
+      var gas = this.heap[1].total * Math.random();
+      
+      // Start driving at the root node
+      var i = 1;  
+      
+      // While we have enough gas to keep going past i:
+      while (gas &gt; this.heap[i].weight) {
+        gas -= this.heap[i].weight;     // Drive past i
+        i &lt;&lt;= 1;                        // Move to first child
+        if (gas &gt; this.heap[i].total) {
+          gas -= this.heap[i].total;    // Drive past first child and its descendants
+          i++;                          // Move on to second child
+        }
+      }
+      // Out of gas - i is our selected node.
+      var value = this.heap[i].value;
+      var selectedWeight = this.heap[i].weight;
+      
+      this.heap[i].weight = 0;          // Make sure i isn't chosen again
+      while (i &gt; 0) {
+        // Remove the weight from its parent's total
+        this.heap[i].total -= selectedWeight;
+        i &gt;&gt;= 1;  // Move to the next parent
+      }
+      return value;
+    }
+  };
+
+  //  NB: another binary heap implementation is at
+  // http://eloquentjavascript.net/appendix2.html
+
+  return _WeightedList;
+})();</code></pre></div></div></div></article></div></div><!-- Foundation JS--><script type="text/javascript">document.write('<script src=' +
+('__proto__' in {} ? 'http://cdnjs.cloudflare.com/ajax/libs/zepto/1.0/zepto.min' : 'http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min') +
+'.js><\/script>')
+</script><script src="http://cdnjs.cloudflare.com/ajax/libs/foundation/4.1.6/js/foundation.min.js"></script><script src="http://cdnjs.cloudflare.com/ajax/libs/foundation/4.1.6/js/foundation/foundation.reveal.min.js"></script><!-- Prism js--><script>/**
+ * Prism: Lightweight, robust, elegant syntax highlighting
+ * MIT license http://www.opensource.org/licenses/mit-license.php/
+ * @author Lea Verou http://lea.verou.me
+ */(function(){var e=/\blang(?:uage)?-(?!\*)(\w+)\b/i,t=self.Prism={util:{type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},clone:function(e){var n=t.util.type(e);switch(n){case"Object":var r={};for(var i in e)e.hasOwnProperty(i)&&(r[i]=t.util.clone(e[i]));return r;case"Array":return e.slice()}return e}},languages:{extend:function(e,n){var r=t.util.clone(t.languages[e]);for(var i in n)r[i]=n[i];return r},insertBefore:function(e,n,r,i){i=i||t.languages;var s=i[e],o={};for(var u in s)if(s.hasOwnProperty(u)){if(u==n)for(var a in r)r.hasOwnProperty(a)&&(o[a]=r[a]);o[u]=s[u]}return i[e]=o},DFS:function(e,n){for(var r in e){n.call(e,r,e[r]);t.util.type(e)==="Object"&&t.languages.DFS(e[r],n)}}},highlightAll:function(e,n){var r=document.querySelectorAll('code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code');for(var i=0,s;s=r[i++];)t.highlightElement(s,e===!0,n)},highlightElement:function(r,i,s){var o,u,a=r;while(a&&!e.test(a.className))a=a.parentNode;if(a){o=(a.className.match(e)||[,""])[1];u=t.languages[o]}if(!u)return;r.className=r.className.replace(e,"").replace(/\s+/g," ")+" language-"+o;a=r.parentNode;/pre/i.test(a.nodeName)&&(a.className=a.className.replace(e,"").replace(/\s+/g," ")+" language-"+o);var f=r.textContent;if(!f)return;f=f.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ");var l={element:r,language:o,grammar:u,code:f};t.hooks.run("before-highlight",l);if(i&&self.Worker){var c=new Worker(t.filename);c.onmessage=function(e){l.highlightedCode=n.stringify(JSON.parse(e.data),o);t.hooks.run("before-insert",l);l.element.innerHTML=l.highlightedCode;s&&s.call(l.element);t.hooks.run("after-highlight",l)};c.postMessage(JSON.stringify({language:l.language,code:l.code}))}else{l.highlightedCode=t.highlight(l.code,l.grammar,l.language);t.hooks.run("before-insert",l);l.element.innerHTML=l.highlightedCode;s&&s.call(r);t.hooks.run("after-highlight",l)}},highlight:function(e,r,i){return n.stringify(t.tokenize(e,r),i)},tokenize:function(e,n,r){var i=t.Token,s=[e],o=n.rest;if(o){for(var u in o)n[u]=o[u];delete n.rest}e:for(var u in n){if(!n.hasOwnProperty(u)||!n[u])continue;var a=n[u],f=a.inside,l=!!a.lookbehind,c=0;a=a.pattern||a;for(var h=0;h<s.length;h++){var p=s[h];if(s.length>e.length)break e;if(p instanceof i)continue;a.lastIndex=0;var d=a.exec(p);if(d){l&&(c=d[1].length);var v=d.index-1+c,d=d[0].slice(c),m=d.length,g=v+m,y=p.slice(0,v+1),b=p.slice(g+1),w=[h,1];y&&w.push(y);var E=new i(u,f?t.tokenize(d,f):d);w.push(E);b&&w.push(b);Array.prototype.splice.apply(s,w)}}}return s},hooks:{all:{},add:function(e,n){var r=t.hooks.all;r[e]=r[e]||[];r[e].push(n)},run:function(e,n){var r=t.hooks.all[e];if(!r||!r.length)return;for(var i=0,s;s=r[i++];)s(n)}}},n=t.Token=function(e,t){this.type=e;this.content=t};n.stringify=function(e,r,i){if(typeof e=="string")return e;if(Object.prototype.toString.call(e)=="[object Array]")return e.map(function(t){return n.stringify(t,r,e)}).join("");var s={type:e.type,content:n.stringify(e.content,r,i),tag:"span",classes:["token",e.type],attributes:{},language:r,parent:i};s.type=="comment"&&(s.attributes.spellcheck="true");t.hooks.run("wrap",s);var o="";for(var u in s.attributes)o+=u+'="'+(s.attributes[u]||"")+'"';return"<"+s.tag+' class="'+s.classes.join(" ")+'" '+o+">"+s.content+"</"+s.tag+">"};if(!self.document){self.addEventListener("message",function(e){var n=JSON.parse(e.data),r=n.language,i=n.code;self.postMessage(JSON.stringify(t.tokenize(i,t.languages[r])));self.close()},!1);return}var r=document.getElementsByTagName("script");r=r[r.length-1];if(r){t.filename=r.src;document.addEventListener&&!r.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",t.highlightAll)}})();;
+Prism.languages.markup={comment:/&lt;!--[\w\W]*?-->/g,prolog:/&lt;\?.+?\?>/,doctype:/&lt;!DOCTYPE.+?>/,cdata:/&lt;!\[CDATA\[[\w\W]*?]]>/i,tag:{pattern:/&lt;\/?[\w:-]+\s*(?:\s+[\w:-]+(?:=(?:("|')(\\?[\w\W])*?\1|\w+))?\s*)*\/?>/gi,inside:{tag:{pattern:/^&lt;\/?[\w:-]+/i,inside:{punctuation:/^&lt;\/?/,namespace:/^[\w-]+?:/}},"attr-value":{pattern:/=(?:('|")[\w\W]*?(\1)|[^\s>]+)/gi,inside:{punctuation:/=|>|"/g}},punctuation:/\/?>/g,"attr-name":{pattern:/[\w:-]+/g,inside:{namespace:/^[\w-]+?:/}}}},entity:/&amp;#?[\da-z]{1,8};/gi};Prism.hooks.add("wrap",function(e){e.type==="entity"&&(e.attributes.title=e.content.replace(/&amp;/,"&"))});;
+Prism.languages.css={comment:/\/\*[\w\W]*?\*\//g,atrule:{pattern:/@[\w-]+?.*?(;|(?=\s*{))/gi,inside:{punctuation:/[;:]/g}},url:/url\((["']?).*?\1\)/gi,selector:/[^\{\}\s][^\{\};]*(?=\s*\{)/g,property:/(\b|\B)[\w-]+(?=\s*:)/ig,string:/("|')(\\?.)*?\1/g,important:/\B!important\b/gi,ignore:/&(lt|gt|amp);/gi,punctuation:/[\{\};:]/g};Prism.languages.markup&&Prism.languages.insertBefore("markup","tag",{style:{pattern:/(&lt;|<)style[\w\W]*?(>|&gt;)[\w\W]*?(&lt;|<)\/style(>|&gt;)/ig,inside:{tag:{pattern:/(&lt;|<)style[\w\W]*?(>|&gt;)|(&lt;|<)\/style(>|&gt;)/ig,inside:Prism.languages.markup.tag.inside},rest:Prism.languages.css}}});;
+Prism.languages.clike={comment:{pattern:/(^|[^\\])(\/\*[\w\W]*?\*\/|(^|[^:])\/\/.*?(\r?\n|$))/g,lookbehind:!0},string:/("|')(\\?.)*?\1/g,"class-name":{pattern:/((?:(?:class|interface|extends|implements|trait|instanceof|new)\s+)|(?:catch\s+\())[a-z0-9_\.\\]+/ig,lookbehind:!0,inside:{punctuation:/(\.|\\)/}},keyword:/\b(if|else|while|do|for|return|in|instanceof|function|new|try|catch|finally|null|break|continue)\b/g,"boolean":/\b(true|false)\b/g,"function":{pattern:/[a-z0-9_]+\(/ig,inside:{punctuation:/\(/}}, number:/\b-?(0x[\dA-Fa-f]+|\d*\.?\d+([Ee]-?\d+)?)\b/g,operator:/[-+]{1,2}|!|&lt;=?|>=?|={1,3}|(&amp;){1,2}|\|?\||\?|\*|\/|\~|\^|\%/g,ignore:/&(lt|gt|amp);/gi,punctuation:/[{}[\];(),.:]/g};;
+Prism.languages.javascript=Prism.languages.extend("clike",{keyword:/\b(var|let|if|else|while|do|for|return|in|instanceof|function|new|with|typeof|try|catch|finally|null|break|continue)\b/g,number:/\b-?(0x[\dA-Fa-f]+|\d*\.?\d+([Ee]-?\d+)?|NaN|-?Infinity)\b/g});Prism.languages.insertBefore("javascript","keyword",{regex:{pattern:/(^|[^/])\/(?!\/)(\[.+?]|\\.|[^/\r\n])+\/[gim]{0,3}(?=\s*($|[\r\n,.;})]))/g,lookbehind:!0}});Prism.languages.markup&&Prism.languages.insertBefore("markup","tag",{script:{pattern:/(&lt;|<)script[\w\W]*?(>|&gt;)[\w\W]*?(&lt;|<)\/script(>|&gt;)/ig,inside:{tag:{pattern:/(&lt;|<)script[\w\W]*?(>|&gt;)|(&lt;|<)\/script(>|&gt;)/ig,inside:Prism.languages.markup.tag.inside},rest:Prism.languages.javascript}}});;
+Prism.languages.coffeescript=Prism.languages.extend("javascript",{"block-comment":/([#]{3}\s*\r?\n(.*\s*\r*\n*)\s*?\r?\n[#]{3})/g,comment:/(\s|^)([#]{1}[^#^\r^\n]{2,}?(\r?\n|$))/g,keyword:/\b(this|window|delete|class|extends|namespace|extend|ar|let|if|else|while|do|for|each|of|return|in|instanceof|new|with|typeof|try|catch|finally|null|undefined|break|continue)\b/g});Prism.languages.insertBefore("coffeescript","keyword",{"function":{pattern:/[a-z|A-z]+\s*[:|=]\s*(\([.|a-z\s|,|:|{|}|\"|\'|=]*\))?\s*-&gt;/gi,inside:{"function-name":/[_?a-z-|A-Z-]+(\s*[:|=])| @[_?$?a-z-|A-Z-]+(\s*)| /g,operator:/[-+]{1,2}|!|=?&lt;|=?&gt;|={1,2}|(&amp;){1,2}|\|?\||\?|\*|\//g}},"attr-name":/[_?a-z-|A-Z-]+(\s*:)| @[_?$?a-z-|A-Z-]+(\s*)| /g});;
+Prism.languages.scss=Prism.languages.extend("css",{comment:{pattern:/(^|[^\\])(\/\*[\w\W]*?\*\/|\/\/.*?(\r?\n|$))/g,lookbehind:!0},atrule:/@[\w-]+(?=\s+(\(|\{|;))/gi,url:/([-a-z]+-)*url(?=\()/gi,selector:/([^@;\{\}\(\)]?([^@;\{\}\(\)]|&amp;|\#\{\$[-_\w]+\})+)(?=\s*\{(\}|\s|[^\}]+(:|\{)[^\}]+))/gm});Prism.languages.insertBefore("scss","atrule",{keyword:/@(if|else if|else|for|each|while|import|extend|debug|warn|mixin|include|function|return)|(?=@for\s+\$[-_\w]+\s)+from/i});Prism.languages.insertBefore("scss","property",{variable:/((\$[-_\w]+)|(#\{\$[-_\w]+\}))/i});Prism.languages.insertBefore("scss","ignore",{placeholder:/%[-_\w]+/i,statement:/\B!(default|optional)\b/gi,"boolean":/\b(true|false)\b/g,"null":/\b(null)\b/g,operator:/\s+([-+]{1,2}|={1,2}|!=|\|?\||\?|\*|\/|\%)\s+/g});
+;
+</script><script>  var headerHeight = 64;
+
+  $(document).foundation();
+
+  $(function(){
+    $('pre code').addClass('language-javascript');
+  //   $('#nav > ul > li > a[href$="'+location.pathname.substring(location.pathname.lastIndexOf('/')+1, location.pathname.length)+'"]').parent().addClass('active');
+  })</script></body></html>

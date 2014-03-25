@@ -1,5 +1,6 @@
-/** ## Dependencies
- *  * weighted-list.js
+/** 
+ * ## Dependencies
+ * weighted-list.js
  */
 
 CurrentExperiment = {
@@ -24,25 +25,57 @@ CurrentExperiment = {
      */
     loopInterval: 5000,
 
-    /** How many miliseconds you want the experiment to run in a worst case scenario. */
+    /** 
+     * How many miliseconds you want the experiment to run in a worst case scenario. 
+     */
     maxDuration: 90 * 60 * 1000,
 
-    /** The check period to use when determining loudest dB during an interval. */
+    /** 
+     * The check period to use when determining loudest dB during an interval. 
+     */
     intervalCheck: 500,
 
-    /** Extinction must occur for this long before experiment ends. */
-    quietTime: 25 * 1000,
+    /** 
+     * Extinction must occur for this long before experiment ends. 
+     */
+    quietTime: 15 * 1000,
 
-    /** ## Private variables
+    /** 
+     * How many records back are used for the comparison? 
+     */
+    comparisonRecordTotal: 19,
+
+    /** 
+     * When comparison records are sorted DESC, what is the index to use as a comparitor? 
+     */
+    comparisonIndex: 4,
+
+    /** 
+     * How much louder does participant need to be before starting extinction? 
+     */
+    extinctionMultiplier: 1.2,
+
+    /** 
+     * An override max for how loud the participant needs to be before starting extinction. 
+     */
+    extinctionMaxMagnitude: 300,
+    
+
+    /** 
+     * ## Private variables
      */
 
-    /** Is the experiment running right now? */
+    /** 
+     * Is the experiment running right now? 
+     */
     isRunning: false,
 
     /** Is the experiment paused right now? */
     isPaused: false,
 
-    /** Timeout variable for CurrentExperiment.loop() */
+    /** 
+     * Timeout variable for CurrentExperiment.loop() 
+     */
     timeout: null,
 
     /** 
@@ -51,41 +84,47 @@ CurrentExperiment = {
      */
     data: null,
 
-    /** Total miliseconds elapsed since beginning of experiment. */
+    /** 
+     * Total miliseconds elapsed since beginning of experiment. 
+     */
     totalTime: 0,
 
-    /** Is extinction happening? */
+    /** 
+     * Is extinction happening? 
+     */
     extinction: true,
 
-    /** Time at which extinction began. */
+    /** 
+     * Time at which extinction began. 
+     */
     extinctionStart: 0,
 
-    /** Total miliseoncds since extinction started. */
+    /** 
+     * Total miliseoncds since extinction started. 
+     */
     extinctionTime: 0,
 
-    /** How much louder does participant need to be before starting extinction? */
-    extinctionMultiplier: 1.2,
-
-    /** An override max for how loud the participant needs to be before starting extinction. */
-    extinctionMaxMagnitude: 300,
-
-    /** Quiet time total */
+    /** 
+     * Quiet time total 
+     */
     quietTotal: 0,
 
-    /** Timestamp in miliseconds of the last time an interval was tallied. */
+    /** 
+     * Timestamp in miliseconds of the last time an interval was tallied. 
+     */
     lastTime: 0,
     
-    /** Loudest dB reading from current interval. */
+    /** 
+     * Loudest dB reading from current interval. 
+     */
     intervalLoudest: 0,
 
-    /** First portion of experiment */
+    /** 
+     * First portion of experiment 
+     */
     loudestOverFirstPortion: 0,
 
-    /** How many records back are used for the comparison? */
-    comparisonRecordTotal: 19,
-
-    /** When comparison records are sorted DESC, what is the index to use as a comparitor? */
-    comparisonIndex: 4,
+    
 
     /**
      * ## The internal probability table to be used to determine whether to do an increment.

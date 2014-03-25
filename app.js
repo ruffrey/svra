@@ -19,6 +19,7 @@ app.use(express.compress({
 	memLevel: 9
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/docs', express.static(path.join(__dirname, 'docs')) );
 
 app.set('views', path.join(__dirname, 'views'));
 
@@ -26,7 +27,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('hjs', require('hogan-express'));
 app.set('view engine', 'hjs');
 app.set('layout', 'layout');
-app.set('partials', {datamanager: 'datamanager'} )
+app.set('partials', {datamanager: 'datamanager'} );
 
 app.use(express.favicon());
 app.use(express.logger('dev'));

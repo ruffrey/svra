@@ -1,0 +1,530 @@
+<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width" charset="utf-8"><title>SVRA docs</title><!-- Foundation CSS--><link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/foundation/4.1.6/css/foundation.min.css"><!-- Prism CSS--><style type="text/css">/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: black;
+	text-shadow: 0 1px white;
+	font-family: Consolas, Monaco, 'Andale Mono', monospace;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+::-moz-selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+::selection {
+	text-shadow: none;
+	background: #b3d4fc;
+}
+
+@media print {
+	code[class*="language-"],
+	pre[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: slategray;
+}
+
+.token.punctuation {
+	color: #999;
+}
+
+.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number {
+	color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string {
+	color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+	color: #a67f59;
+	background: hsla(0,0%,100%,.5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+	color: #07a;
+}
+
+
+.token.regex,
+.token.important {
+	color: #e90;
+}
+
+.token.important {
+	font-weight: bold;
+}
+
+.token.entity {
+	cursor: help;
+}
+</style><!-- Custom Styles--><style type="text/css">h1.page-title small {
+  font-weight: 400;
+}
+/*.section-container, .section-container .section .title
+  border-color #e6e6e6*/
+#nav .section.active {
+  padding-top: 0 !important;
+}
+#nav .section.active .title {
+  background: #ddd;
+}
+#nav .section .title {
+  background-color: #eee;
+}
+#nav .section .title a {
+  font-weight: 700;
+  padding: 0.6em;
+}
+#nav .section .title a small {
+  font-size: 0.8em;
+  line-height: 1em;
+  display: block;
+  color: #888;
+  margin: 2px 0 -2px;
+}
+#nav .section .title:hover {
+  background: #ddd;
+}
+#nav ul.solo {
+  border-top: 1px solid #ccc;
+  padding: 0.875em;
+}
+code {
+  background: transparent;
+  line-height: 1.3em;
+  font-weight: normal;
+}
+.comment {
+  position: relative;
+  padding-bottom: 1.5em;
+  margin-bottom: 2em;
+  border-bottom: 1px solid #ddd;
+}
+.comment ol,
+.comment ul {
+  margin-left: 2.25em;
+}
+.comment ol.no-bullet,
+.comment ul.no-bullet {
+  margin-left: 0;
+}
+.comment header {
+  margin-bottom: 1.5em;
+}
+.comment header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.2em;
+}
+.comment .section-container,
+.comment .section-container > .section > .content {
+  border: none;
+}
+.comment .section-container > .section > .title {
+  padding: auto;
+  background: none !important;
+  border: none !important;
+}
+.comment .section-container > .section > .title a {
+  border-radius: 4px;
+  font-weight: 700;
+  padding: 1px 10px 1px 0;
+  margin-right: 5px;
+  color: #ccc;
+}
+.comment .section-container > .section:hover .title a {
+  color: #999;
+}
+.comment .section-container > .section.active .title a {
+  color: #2ba6cb;
+}
+.comment .section-container > .section > .content {
+  padding: 0.9em 0 0;
+}
+.comment div.description h2 {
+  font-size: 1.2em;
+}
+.comment .tags span {
+  margin-right: 4px;
+}
+.comment .tags .name,
+.comment .tags .type {
+  font-weight: 700;
+}
+.comment .tags .types {
+  color: #666;
+}
+.comment .tags .description {
+  margin-left: 15px;
+}
+.ctx-type {
+  margin-right: 6px;
+  font-size: 0.7em;
+}
+</style><script srr="http://cdnjs.cloudflare.com/ajax/libs/foundation/4.1.6/js/vendor/custom.modernizr.js"></script></head><body><div class="row"><div class="small-12 columns"><h1 class="page-title">SVRA docs<small> public/js/exp/I.js</small></h1></div></div><div class="row"><div id="nav" class="large-3 columns"><div data-section="accordian" data-options="" class="section-container accordian"><div class="section"><p data-section-title class="title"><a href="../../../../docs/public/js/AudioContext.js.html"><small>public/js/</small>AudioContext.js</a></p><div data-section-content class="content"><ul class="side-nav"></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../../docs/public/js/AudioDisplay.js.html"><small>public/js/</small>AudioDisplay.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../../docs/public/js/AudioDisplay.js.html#drawBuffer">drawBuffer</a></li></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../../docs/public/js/AudioRecorder.js.html"><small>public/js/</small>AudioRecorder.js</a></p><div data-section-content class="content"><ul class="side-nav"></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../../docs/public/js/Experiment.js.html"><small>public/js/</small>Experiment.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../../docs/public/js/Experiment.js.html#_method">_method</a></li><li><a href="../../../../docs/public/js/Experiment.js.html#_isSaved">_isSaved</a></li></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../../docs/public/js/RecorderWorker.js.html"><small>public/js/</small>RecorderWorker.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../../docs/public/js/RecorderWorker.js.html#recLength">recLength</a></li></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../../docs/public/js/client.js.html"><small>public/js/</small>client.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../../docs/public/js/client.js.html#MAG_INTERVAL">MAG_INTERVAL</a></li><li><a href="../../../../docs/public/js/client.js.html#Decibels">Decibels</a></li><li><a href="../../../../docs/public/js/client.js.html#updateAnalysers">updateAnalysers</a></li></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../../docs/public/js/date-utils.js.html"><small>public/js/</small>date-utils.js</a></p><div data-section-content class="content"><ul class="side-nav"></ul></div></div><div class="section active"><p data-section-title class="title"><a href="../../../../docs/public/js/exp/I.js.html"><small>public/js/exp/</small>I.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../../docs/public/js/exp/I.js.html#intervalValueForComparison">intervalValueForComparison</a></li><li><a href="../../../../docs/public/js/exp/I.js.html#twoMinutesHavePassed">twoMinutesHavePassed</a></li><li><a href="../../../../docs/public/js/exp/I.js.html#firstPortionTotal">firstPortionTotal</a></li></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../../docs/public/js/exp/II.js.html"><small>public/js/exp/</small>II.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../../docs/public/js/exp/II.js.html#intervalValueForComparison">intervalValueForComparison</a></li><li><a href="../../../../docs/public/js/exp/II.js.html#twoMinutesHavePassed">twoMinutesHavePassed</a></li><li><a href="../../../../docs/public/js/exp/II.js.html#firstPortionTotal">firstPortionTotal</a></li></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../../docs/public/js/exp/III.js.html"><small>public/js/exp/</small>III.js</a></p><div data-section-content class="content"><ul class="side-nav"></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../../docs/public/js/exp/IV.js.html"><small>public/js/exp/</small>IV.js</a></p><div data-section-content class="content"><ul class="side-nav"></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../../docs/public/js/exp/home.js.html"><small>public/js/exp/</small>home.js</a></p><div data-section-content class="content"><ul class="side-nav"></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../../docs/public/js/exp/practice.js.html"><small>public/js/exp/</small>practice.js</a></p><div data-section-content class="content"><ul class="side-nav"></ul></div></div><div class="section active"><p data-section-title class="title"><a href="../../../../docs/public/js/exp/I.js.html"><small>public/js/exp/</small>I.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../../docs/public/js/exp/I.js.html#intervalValueForComparison">intervalValueForComparison</a></li><li><a href="../../../../docs/public/js/exp/I.js.html#twoMinutesHavePassed">twoMinutesHavePassed</a></li><li><a href="../../../../docs/public/js/exp/I.js.html#firstPortionTotal">firstPortionTotal</a></li></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../../docs/public/js/exp/II.js.html"><small>public/js/exp/</small>II.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../../docs/public/js/exp/II.js.html#intervalValueForComparison">intervalValueForComparison</a></li><li><a href="../../../../docs/public/js/exp/II.js.html#twoMinutesHavePassed">twoMinutesHavePassed</a></li><li><a href="../../../../docs/public/js/exp/II.js.html#firstPortionTotal">firstPortionTotal</a></li></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../../docs/public/js/exp/III.js.html"><small>public/js/exp/</small>III.js</a></p><div data-section-content class="content"><ul class="side-nav"></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../../docs/public/js/exp/IV.js.html"><small>public/js/exp/</small>IV.js</a></p><div data-section-content class="content"><ul class="side-nav"></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../../docs/public/js/exp/home.js.html"><small>public/js/exp/</small>home.js</a></p><div data-section-content class="content"><ul class="side-nav"></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../../docs/public/js/exp/practice.js.html"><small>public/js/exp/</small>practice.js</a></p><div data-section-content class="content"><ul class="side-nav"></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../../docs/public/js/jquery-color.js.html"><small>public/js/</small>jquery-color.js</a></p><div data-section-content class="content"><ul class="side-nav"></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../../docs/public/js/ui-interactions.js.html"><small>public/js/</small>ui-interactions.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../../docs/public/js/ui-interactions.js.html#SwitchExperiment">SwitchExperiment</a></li></ul></div></div><div class="section"><p data-section-title class="title"><a href="../../../../docs/public/js/weighted-list.js.html"><small>public/js/</small>weighted-list.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../../docs/public/js/weighted-list.js.html#WeightedList">WeightedList</a></li><li><a href="../../../../docs/public/js/weighted-list.js.html#_HeapNode">_HeapNode</a></li><li><a href="../../../../docs/public/js/weighted-list.js.html#_WeightedHeap">_WeightedHeap</a></li></ul></div></div></div></div><div class="small-12 large-9 columns"><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><h2>Dependencies</h2>
+
+<p>weighted-list.js</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">CurrentExperiment = {</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><h2>Settings</h2></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>The first row of data output.</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">recordHeader: [
+        &quot;ms since start of experiment&quot;,
+        &quot;interval value (magnitude)&quot;,
+        &quot;loudest 5th of last 19&quot;,
+        &quot;point total&quot;,
+        &quot;pause time&quot;,
+        &quot;extinction&quot;
+    ],</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>How many miliseconds you want a single interval to last.</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">loopInterval: 5000,</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>How many miliseconds you want the experiment to run in a worst case scenario.</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">maxDuration: 90 * 60 * 1000,</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>The check period to use when determining loudest dB during an interval.</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">intervalCheck: 500,</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Extinction must occur for this long before experiment ends.</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">quietTime: 15 * 1000,</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>How many records back are used for the comparison?</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">comparisonRecordTotal: 19,</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>When comparison records are sorted DESC, what is the index to use as a comparitor?</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">comparisonIndex: 4,</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>How much louder does participant need to be before starting extinction?</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">extinctionMultiplier: 1.2,</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>An override max for how loud the participant needs to be before starting extinction.</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">extinctionMaxMagnitude: 300,</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><h2>Private variabl</h2>
+
+<pre><code> es
+</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Is the experiment running right now?</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">isRunning: false,</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Is the experiment paused right now?</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">isPaused: false,</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Timeout variable for CurrentExperiment.loop()</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">timeout: null,</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>The in-memory cache of data for this experiment. <br />All records get saved in localStorage, too.</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">data: null,</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Total miliseconds elapsed since beginning of experiment.</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">totalTime: 0,</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Is extinction happening?</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">extinction: true,</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Time at which extinction began.</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">extinctionStart: 0,</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Total miliseoncds since extinction started.</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">extinctionTime: 0,</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Quiet time total</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">quietTotal: 0,</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Timestamp in miliseconds of the last time an interval was tallied.</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">lastTime: 0,</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Loudest dB reading from current interval.</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">intervalLoudest: 0,</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>First portion of experiment</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">loudestOverFirstPortion: 0,</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><h2>The internal probability table to be used to determine whether to do an increment.</h2>
+
+<p>.25 true<br />.75 false</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">probabilityData: [
+        [true, 0.25],
+        [false, 0.75]
+    ],</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Main looping function, which calls itself.</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">loop: function(loopTime, pauseTotal){
+
+
+        CurrentExperiment.timeout = setTimeout(function(){
+            // var twoMinutes = 10* 1000;
+            var twoMinutes = 60 * 2 * 1000,
+                timeSinceLastCheck = (+new Date()) - CurrentExperiment.lastTime,
+                currentIntervalLoudest = CurrentExperiment.intervalLoudest + 0;
+
+            // reset interval loudest for the next interval
+            CurrentExperiment.intervalLoudest = 0;
+
+            CurrentExperiment.lastTime = +new Date();
+            CurrentExperiment.totalTime += timeSinceLastCheck;
+            if(CurrentExperiment.extinction)
+            {
+                CurrentExperiment.quietTotal += timeSinceLastCheck;
+                CurrentExperiment.extinctionTime += timeSinceLastCheck;
+            }
+
+            console.log('New record at totalTime', 
+                (CurrentExperiment.totalTime/1000), 'seconds');</code></pre></div></div></div></article><article class="comment"><header><h1 id="intervalValueForComparison">intervalValueForComparison</h1><h5 class="subheader"><div class="label radius ctx-type">declaration</div>intervalValueForComparison</h5></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>when applicable, loudest value of the last 19 intervals</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">var intervalValueForComparison = null,
+                lastXrecords = null,
+            // get a copy of the current records, except for the first one which is the header
+                indexOfMagnitudeValue = 1,
+
+                sortByLoudest = function(a, b) {
+                    // always compare numbers to numbers, in case value is null
+                    var a_interval = a[indexOfMagnitudeValue] || 0,
+                        b_interval = b[indexOfMagnitudeValue] || 0;
+                    
+                    if(a_interval &gt; b_interval) return -1;
+                    if(a_interval &lt; b_interval) return 1;
+                    return 0;
+                },
+                currentRecs = CurrentExperiment.data.records.get().slice(1); // dont sort yet
+
+
+            // What is the loudest interval value?
+            if(currentRecs.length &gt; CurrentExperiment.comparisonRecordTotal)
+            {
+                lastXrecords = currentRecs.slice(-CurrentExperiment.comparisonRecordTotal).sort(sortByLoudest);
+                console.log('comparing against set', lastXrecords);
+                var recordForComparison = lastXrecords[CurrentExperiment.comparisonIndex];
+                console.log('comparing against record', recordForComparison);
+                intervalValueForComparison = recordForComparison[indexOfMagnitudeValue];
+            }
+            console.log('Adding new record, number', currentRecs.length+1);
+            // Save the data
+            var newDataRec = [ 
+                CurrentExperiment.totalTime, 
+                currentIntervalLoudest, 
+                intervalValueForComparison, 
+                SCORE, 
+                pauseTotal || null,
+                CurrentExperiment.extinction
+            ];
+            CurrentExperiment.data.records.add(newDataRec);
+            CurrentExperiment.data.save();
+            // then update current recs
+            currentRecs = CurrentExperiment.data.records.get().slice(1)
+
+            // See if extinction is active
+            if(CurrentExperiment.extinction)
+            {
+                console.log('CurrentExperiment.extinction is active');
+
+                if(CurrentExperiment.totalTime &gt;= CurrentExperiment.maxDuration)
+                {
+                    console.log(&quot;Ending experiment - max duration exceeded&quot;);
+                    CurrentExperiment.end();
+                    return;
+                }
+
+                var SILENCE = ROOM_MAG + WIGGLE_ROOM; // they get a little wiggle room
+                console.log(&quot;Silence is at&quot;, SILENCE, &quot;and loudest of last interval was&quot;, currentIntervalLoudest);
+                if(SILENCE &lt; currentIntervalLoudest)
+                {
+                    console.log(&quot;Too loud, resetting quietTotal&quot;);
+                    // if they have not been quiet, reset their quiet time counter
+                    CurrentExperiment.quietTotal = 0;
+                    CurrentExperiment.loop();
+                    return;
+                }
+                // They have been quiet
+                console.log(&quot;Quiet total time is at&quot;, CurrentExperiment.quietTotal);
+
+                // have they been quiet long enough?
+                if(CurrentExperiment.quietTotal &gt;= CurrentExperiment.quietTime)
+                {
+                    console.log(&quot;Ending because they were quiet for long enough&quot;);
+                    CurrentExperiment.end();
+                    return;
+                }
+                // if not, fall through to loop()
+
+                CurrentExperiment.loop();
+                return;
+            }
+            // stop here if in extinction</code></pre></div></div></div></article><article class="comment"><header><h1 id="twoMinutesHavePassed">twoMinutesHavePassed</h1><h5 class="subheader"><div class="label radius ctx-type">declaration</div>twoMinutesHavePassed</h5></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Determining whether to play the sound and increment the score.<br />If two minutes have passed, follow logic for portion 2 of the experiment. Otherwise, it is portion 1 logic.</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">var twoMinutesHavePassed = twoMinutes &lt;= CurrentExperiment.totalTime,
+                wl = new WeightedList(CurrentExperiment.probabilityData),
+                shouldPlayAndIncrement = false;
+
+            // portion 1
+            if(!twoMinutesHavePassed)
+            {
+                shouldPlayAndIncrement = JSON.parse(wl.peek()[0]);
+                console.log(&quot;Two minutes have NOT passed, using probability. Yield is&quot;, shouldPlayAndIncrement);
+            }
+            // portion 2
+            else{
+                console.log(&quot;Two minutes have passed.&quot;);
+               
+                if(intervalValueForComparison &lt; currentIntervalLoudest)
+                {
+                    console.log('Was louder than 5th highest of last 19. intervalValueForComparison:', intervalValueForComparison, 'is less than current:', currentIntervalLoudest);
+
+                    shouldPlayAndIncrement = true;
+                }
+                // highly unlikely it will be equal, but hey what the hell
+                else if(intervalValueForComparison == currentIntervalLoudest)
+                {
+                    console.log('Was equal to the intervalValueForComparison highest of last 19.', intervalValueForComparison, '==', currentIntervalLoudest);
+                    shouldPlayAndIncrement = JSON.parse(wl.peek()[0]);
+                    console.log('Probability used to determine score. Yield is', shouldPlayAndIncrement);
+                }
+                // if it's not getting louder, beep should not play or increment
+                else{
+                    console.log('Not enough louder to give a score. intervalValueForComparison:',
+                        intervalValueForComparison, 'is greater than current:',
+                        currentIntervalLoudest);
+                }
+            }
+
+            if(shouldPlayAndIncrement)
+            {
+                PlayBeep();
+                IncrementScore();
+            }
+
+            if(!twoMinutesHavePassed) return CurrentExperiment.loop();</code></pre></div></div></div></article><article class="comment"><header><h1 id="firstPortionTotal">firstPortionTotal</h1><h5 class="subheader"><div class="label radius ctx-type">declaration</div>firstPortionTotal</h5></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Portion 1 is over. Everything else applies only to portion 2.</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">var firstPortionTotal = 0,
+                firstPortionAverage = 0,
+                loudnessCutoffForExinction = 0,
+                loudnessHasSufficientlyIncreased = false,
+                firstPortionRecs = [],
+                valuesToDetermineExtinction = currentRecs
+                                                .slice( -3 )
+                                                .map(function(rec){
+                                                    return rec[indexOfMagnitudeValue];
+                                                }); // 3 values</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Gather the records from under 2 minutes.</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">$.each(currentRecs, function(i, _record){
+                if(_record[0] &lt;= twoMinutes)
+                {
+                    firstPortionRecs.push(_record);
+                    firstPortionTotal += _record[indexOfMagnitudeValue];
+                }
+            });
+
+           firstPortionAverage = firstPortionTotal / firstPortionRecs.length;</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Set the cutoff point for switching to extinction.</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">loudnessCutoffForExinction = Math.min(
+                firstPortionAverage * CurrentExperiment.extinctionMultiplier,
+                CurrentExperiment.extinctionMaxMagnitude
+            );
+
+            if(currentRecs.length &gt; 15)
+            {
+                var isGreater = 0;
+                $.each(valuesToDetermineExtinction, function(i, _magnitude){
+                    if(_magnitude &gt; loudnessCutoffForExinction) isGreater++;
+                });
+
+                loudnessHasSufficientlyIncreased = isGreater == valuesToDetermineExtinction.length;
+            }</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Determining whether to continue the experiment if two minutes have already passed. Has loudness increased at a substantial amount enough to warrant the final phase of the experiment?</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">if(twoMinutesHavePassed &amp;&amp; loudnessHasSufficientlyIncreased)
+            {
+                console.log(&quot;Starting Extinction because: twoMinutesHavePassed and loudnessHasSufficientlyIncreased&quot;, loudnessCutoffForExinction, 'mag to', valuesToDetermineExtinction);
+
+                CurrentExperiment.extinction = true;
+                CurrentExperiment.extinctionTime = 0;
+                CurrentExperiment.quietTotal = 0;
+                CurrentExperiment.extinctionStart = +new Date();
+                CurrentExperiment.loop();
+            }
+            else if(CurrentExperiment.totalTime &gt;= CurrentExperiment.maxDuration )
+            {
+                console.log(&quot;Killing experiment due to maxDuration exceeded:&quot;, CurrentExperiment.totalTime, 'is greater than max of', CurrentExperiment.maxDuration);
+                CurrentExperiment.end();
+            }
+            else{
+                console.log(&quot;Looping. Not loud enough for extinction yet. Extinction at:&quot;, loudnessCutoffForExinction, 'values are', valuesToDetermineExtinction);
+                CurrentExperiment.loop();
+            }
+
+        }, typeof loopTime == 'undefined' ? CurrentExperiment.loopInterval : loopTime);
+
+    },</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Background looping function that keeps track of highest value during an interval.</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">loopIntervalCheck: function() {
+        
+        CurrentExperiment.intervalLoudest = Math.max(CurrentExperiment.intervalLoudest, lastMag);
+        console.log(CurrentExperiment.intervalLoudest);
+
+        if(CurrentExperiment.isRunning)
+        {
+            setTimeout(function(){
+                CurrentExperiment.loopIntervalCheck();
+            }, CurrentExperiment.intervalCheck);
+        }
+       
+    },</code></pre></div></div></div></article><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><h2>Start and Stop functions</h2></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">end: function(){
+
+        if(CurrentExperiment.timeout) clearTimeout(CurrentExperiment.timeout);
+        CurrentExperiment.isRunning = false;
+        // give it a little bit to play the last beep
+        setTimeout(function(){
+
+            PlayEndBeep();
+
+            EndExperiment();
+
+            CurrentExperiment.timeout = null;
+
+        }, 500);
+        
+
+    },
+
+    start: function(){
+        // Resets
+        CurrentExperiment.isRunning = true;
+        CurrentExperiment.totalTime = 0;
+        CurrentExperiment.lastTime = +new Date();
+        CurrentExperiment.timeout = null;
+        CurrentExperiment.intervalLoudest = 0;
+        CurrentExperiment.extinctionTime = 0;
+        CurrentExperiment.extinctionStart = 0;
+        CurrentExperiment.quietTotal = 0;
+        CurrentExperiment.extinction = false;
+
+        CurrentExperiment.data = new Experiment({
+            method: &quot;I&quot;
+        });
+        
+        CurrentExperiment.data.records.add(CurrentExperiment.recordHeader);
+        CurrentExperiment.data.save();
+
+        // Now Start
+        CurrentExperiment.loopIntervalCheck();
+        CurrentExperiment.loop();
+
+    },
+
+    pause: function(){
+        if(CurrentExperiment.timeout) 
+        {
+            clearTimeout(CurrentExperiment.timeout);
+        }
+
+        CurrentExperiment.totalTime += (  (+new Date()) - CurrentExperiment.lastTime  );
+        CurrentExperiment.isPaused = +new Date();
+
+    },
+
+    continue: function(){
+
+        var elapsedThisRound = CurrentExperiment.isPaused - CurrentExperiment.lastTime;
+
+        CurrentExperiment.lastTime = +new Date();
+
+        var wasPausedTime = (+new Date()) - CurrentExperiment.isPaused;
+        CurrentExperiment.isPaused = false;
+        
+        CurrentExperiment.loop(CurrentExperiment.loopInterval - elapsedThisRound, wasPausedTime);
+
+    }
+};</code></pre></div></div></div></article></div></div><!-- Foundation JS--><script type="text/javascript">document.write('<script src=' +
+('__proto__' in {} ? 'http://cdnjs.cloudflare.com/ajax/libs/zepto/1.0/zepto.min' : 'http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min') +
+'.js><\/script>')
+</script><script src="http://cdnjs.cloudflare.com/ajax/libs/foundation/4.1.6/js/foundation.min.js"></script><script src="http://cdnjs.cloudflare.com/ajax/libs/foundation/4.1.6/js/foundation/foundation.reveal.min.js"></script><!-- Prism js--><script>/**
+ * Prism: Lightweight, robust, elegant syntax highlighting
+ * MIT license http://www.opensource.org/licenses/mit-license.php/
+ * @author Lea Verou http://lea.verou.me
+ */(function(){var e=/\blang(?:uage)?-(?!\*)(\w+)\b/i,t=self.Prism={util:{type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},clone:function(e){var n=t.util.type(e);switch(n){case"Object":var r={};for(var i in e)e.hasOwnProperty(i)&&(r[i]=t.util.clone(e[i]));return r;case"Array":return e.slice()}return e}},languages:{extend:function(e,n){var r=t.util.clone(t.languages[e]);for(var i in n)r[i]=n[i];return r},insertBefore:function(e,n,r,i){i=i||t.languages;var s=i[e],o={};for(var u in s)if(s.hasOwnProperty(u)){if(u==n)for(var a in r)r.hasOwnProperty(a)&&(o[a]=r[a]);o[u]=s[u]}return i[e]=o},DFS:function(e,n){for(var r in e){n.call(e,r,e[r]);t.util.type(e)==="Object"&&t.languages.DFS(e[r],n)}}},highlightAll:function(e,n){var r=document.querySelectorAll('code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code');for(var i=0,s;s=r[i++];)t.highlightElement(s,e===!0,n)},highlightElement:function(r,i,s){var o,u,a=r;while(a&&!e.test(a.className))a=a.parentNode;if(a){o=(a.className.match(e)||[,""])[1];u=t.languages[o]}if(!u)return;r.className=r.className.replace(e,"").replace(/\s+/g," ")+" language-"+o;a=r.parentNode;/pre/i.test(a.nodeName)&&(a.className=a.className.replace(e,"").replace(/\s+/g," ")+" language-"+o);var f=r.textContent;if(!f)return;f=f.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ");var l={element:r,language:o,grammar:u,code:f};t.hooks.run("before-highlight",l);if(i&&self.Worker){var c=new Worker(t.filename);c.onmessage=function(e){l.highlightedCode=n.stringify(JSON.parse(e.data),o);t.hooks.run("before-insert",l);l.element.innerHTML=l.highlightedCode;s&&s.call(l.element);t.hooks.run("after-highlight",l)};c.postMessage(JSON.stringify({language:l.language,code:l.code}))}else{l.highlightedCode=t.highlight(l.code,l.grammar,l.language);t.hooks.run("before-insert",l);l.element.innerHTML=l.highlightedCode;s&&s.call(r);t.hooks.run("after-highlight",l)}},highlight:function(e,r,i){return n.stringify(t.tokenize(e,r),i)},tokenize:function(e,n,r){var i=t.Token,s=[e],o=n.rest;if(o){for(var u in o)n[u]=o[u];delete n.rest}e:for(var u in n){if(!n.hasOwnProperty(u)||!n[u])continue;var a=n[u],f=a.inside,l=!!a.lookbehind,c=0;a=a.pattern||a;for(var h=0;h<s.length;h++){var p=s[h];if(s.length>e.length)break e;if(p instanceof i)continue;a.lastIndex=0;var d=a.exec(p);if(d){l&&(c=d[1].length);var v=d.index-1+c,d=d[0].slice(c),m=d.length,g=v+m,y=p.slice(0,v+1),b=p.slice(g+1),w=[h,1];y&&w.push(y);var E=new i(u,f?t.tokenize(d,f):d);w.push(E);b&&w.push(b);Array.prototype.splice.apply(s,w)}}}return s},hooks:{all:{},add:function(e,n){var r=t.hooks.all;r[e]=r[e]||[];r[e].push(n)},run:function(e,n){var r=t.hooks.all[e];if(!r||!r.length)return;for(var i=0,s;s=r[i++];)s(n)}}},n=t.Token=function(e,t){this.type=e;this.content=t};n.stringify=function(e,r,i){if(typeof e=="string")return e;if(Object.prototype.toString.call(e)=="[object Array]")return e.map(function(t){return n.stringify(t,r,e)}).join("");var s={type:e.type,content:n.stringify(e.content,r,i),tag:"span",classes:["token",e.type],attributes:{},language:r,parent:i};s.type=="comment"&&(s.attributes.spellcheck="true");t.hooks.run("wrap",s);var o="";for(var u in s.attributes)o+=u+'="'+(s.attributes[u]||"")+'"';return"<"+s.tag+' class="'+s.classes.join(" ")+'" '+o+">"+s.content+"</"+s.tag+">"};if(!self.document){self.addEventListener("message",function(e){var n=JSON.parse(e.data),r=n.language,i=n.code;self.postMessage(JSON.stringify(t.tokenize(i,t.languages[r])));self.close()},!1);return}var r=document.getElementsByTagName("script");r=r[r.length-1];if(r){t.filename=r.src;document.addEventListener&&!r.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",t.highlightAll)}})();;
+Prism.languages.markup={comment:/&lt;!--[\w\W]*?-->/g,prolog:/&lt;\?.+?\?>/,doctype:/&lt;!DOCTYPE.+?>/,cdata:/&lt;!\[CDATA\[[\w\W]*?]]>/i,tag:{pattern:/&lt;\/?[\w:-]+\s*(?:\s+[\w:-]+(?:=(?:("|')(\\?[\w\W])*?\1|\w+))?\s*)*\/?>/gi,inside:{tag:{pattern:/^&lt;\/?[\w:-]+/i,inside:{punctuation:/^&lt;\/?/,namespace:/^[\w-]+?:/}},"attr-value":{pattern:/=(?:('|")[\w\W]*?(\1)|[^\s>]+)/gi,inside:{punctuation:/=|>|"/g}},punctuation:/\/?>/g,"attr-name":{pattern:/[\w:-]+/g,inside:{namespace:/^[\w-]+?:/}}}},entity:/&amp;#?[\da-z]{1,8};/gi};Prism.hooks.add("wrap",function(e){e.type==="entity"&&(e.attributes.title=e.content.replace(/&amp;/,"&"))});;
+Prism.languages.css={comment:/\/\*[\w\W]*?\*\//g,atrule:{pattern:/@[\w-]+?.*?(;|(?=\s*{))/gi,inside:{punctuation:/[;:]/g}},url:/url\((["']?).*?\1\)/gi,selector:/[^\{\}\s][^\{\};]*(?=\s*\{)/g,property:/(\b|\B)[\w-]+(?=\s*:)/ig,string:/("|')(\\?.)*?\1/g,important:/\B!important\b/gi,ignore:/&(lt|gt|amp);/gi,punctuation:/[\{\};:]/g};Prism.languages.markup&&Prism.languages.insertBefore("markup","tag",{style:{pattern:/(&lt;|<)style[\w\W]*?(>|&gt;)[\w\W]*?(&lt;|<)\/style(>|&gt;)/ig,inside:{tag:{pattern:/(&lt;|<)style[\w\W]*?(>|&gt;)|(&lt;|<)\/style(>|&gt;)/ig,inside:Prism.languages.markup.tag.inside},rest:Prism.languages.css}}});;
+Prism.languages.clike={comment:{pattern:/(^|[^\\])(\/\*[\w\W]*?\*\/|(^|[^:])\/\/.*?(\r?\n|$))/g,lookbehind:!0},string:/("|')(\\?.)*?\1/g,"class-name":{pattern:/((?:(?:class|interface|extends|implements|trait|instanceof|new)\s+)|(?:catch\s+\())[a-z0-9_\.\\]+/ig,lookbehind:!0,inside:{punctuation:/(\.|\\)/}},keyword:/\b(if|else|while|do|for|return|in|instanceof|function|new|try|catch|finally|null|break|continue)\b/g,"boolean":/\b(true|false)\b/g,"function":{pattern:/[a-z0-9_]+\(/ig,inside:{punctuation:/\(/}}, number:/\b-?(0x[\dA-Fa-f]+|\d*\.?\d+([Ee]-?\d+)?)\b/g,operator:/[-+]{1,2}|!|&lt;=?|>=?|={1,3}|(&amp;){1,2}|\|?\||\?|\*|\/|\~|\^|\%/g,ignore:/&(lt|gt|amp);/gi,punctuation:/[{}[\];(),.:]/g};;
+Prism.languages.javascript=Prism.languages.extend("clike",{keyword:/\b(var|let|if|else|while|do|for|return|in|instanceof|function|new|with|typeof|try|catch|finally|null|break|continue)\b/g,number:/\b-?(0x[\dA-Fa-f]+|\d*\.?\d+([Ee]-?\d+)?|NaN|-?Infinity)\b/g});Prism.languages.insertBefore("javascript","keyword",{regex:{pattern:/(^|[^/])\/(?!\/)(\[.+?]|\\.|[^/\r\n])+\/[gim]{0,3}(?=\s*($|[\r\n,.;})]))/g,lookbehind:!0}});Prism.languages.markup&&Prism.languages.insertBefore("markup","tag",{script:{pattern:/(&lt;|<)script[\w\W]*?(>|&gt;)[\w\W]*?(&lt;|<)\/script(>|&gt;)/ig,inside:{tag:{pattern:/(&lt;|<)script[\w\W]*?(>|&gt;)|(&lt;|<)\/script(>|&gt;)/ig,inside:Prism.languages.markup.tag.inside},rest:Prism.languages.javascript}}});;
+Prism.languages.coffeescript=Prism.languages.extend("javascript",{"block-comment":/([#]{3}\s*\r?\n(.*\s*\r*\n*)\s*?\r?\n[#]{3})/g,comment:/(\s|^)([#]{1}[^#^\r^\n]{2,}?(\r?\n|$))/g,keyword:/\b(this|window|delete|class|extends|namespace|extend|ar|let|if|else|while|do|for|each|of|return|in|instanceof|new|with|typeof|try|catch|finally|null|undefined|break|continue)\b/g});Prism.languages.insertBefore("coffeescript","keyword",{"function":{pattern:/[a-z|A-z]+\s*[:|=]\s*(\([.|a-z\s|,|:|{|}|\"|\'|=]*\))?\s*-&gt;/gi,inside:{"function-name":/[_?a-z-|A-Z-]+(\s*[:|=])| @[_?$?a-z-|A-Z-]+(\s*)| /g,operator:/[-+]{1,2}|!|=?&lt;|=?&gt;|={1,2}|(&amp;){1,2}|\|?\||\?|\*|\//g}},"attr-name":/[_?a-z-|A-Z-]+(\s*:)| @[_?$?a-z-|A-Z-]+(\s*)| /g});;
+Prism.languages.scss=Prism.languages.extend("css",{comment:{pattern:/(^|[^\\])(\/\*[\w\W]*?\*\/|\/\/.*?(\r?\n|$))/g,lookbehind:!0},atrule:/@[\w-]+(?=\s+(\(|\{|;))/gi,url:/([-a-z]+-)*url(?=\()/gi,selector:/([^@;\{\}\(\)]?([^@;\{\}\(\)]|&amp;|\#\{\$[-_\w]+\})+)(?=\s*\{(\}|\s|[^\}]+(:|\{)[^\}]+))/gm});Prism.languages.insertBefore("scss","atrule",{keyword:/@(if|else if|else|for|each|while|import|extend|debug|warn|mixin|include|function|return)|(?=@for\s+\$[-_\w]+\s)+from/i});Prism.languages.insertBefore("scss","property",{variable:/((\$[-_\w]+)|(#\{\$[-_\w]+\}))/i});Prism.languages.insertBefore("scss","ignore",{placeholder:/%[-_\w]+/i,statement:/\B!(default|optional)\b/gi,"boolean":/\b(true|false)\b/g,"null":/\b(null)\b/g,operator:/\s+([-+]{1,2}|={1,2}|!=|\|?\||\?|\*|\/|\%)\s+/g});
+;
+</script><script>  var headerHeight = 64;
+
+  $(document).foundation();
+
+  $(function(){
+    $('pre code').addClass('language-javascript');
+  //   $('#nav > ul > li > a[href$="'+location.pathname.substring(location.pathname.lastIndexOf('/')+1, location.pathname.length)+'"]').parent().addClass('active');
+  })</script></body></html>
