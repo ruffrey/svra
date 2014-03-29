@@ -171,13 +171,13 @@ CurrentExperiment = {
             // get a copy of the current records, except for the first one which is the header
                 indexOfMagnitudeValue = 1,
 
-                sortByLoudest = function(a, b) {
+                sortByQuietest = function(a, b) {
                     // always compare numbers to numbers, in case value is null
                     var a_interval = a[indexOfMagnitudeValue] || 0,
                         b_interval = b[indexOfMagnitudeValue] || 0;
                     
-                    if(a_interval > b_interval) return -1;
-                    if(a_interval < b_interval) return 1;
+                    if(a_interval < b_interval) return -1;
+                    if(a_interval > b_interval) return 1;
                     return 0;
                 },
                 currentRecs = CurrentExperiment.data.records.get().slice(1); // dont sort yet
@@ -186,7 +186,7 @@ CurrentExperiment = {
             // What is the loudest interval value?
             if(currentRecs.length > CurrentExperiment.comparisonRecordTotal)
             {
-                lastXrecords = currentRecs.slice(-CurrentExperiment.comparisonRecordTotal).sort(sortByLoudest);
+                lastXrecords = currentRecs.slice(-CurrentExperiment.comparisonRecordTotal).sort(sortByQuietest);
                 console.log('comparing against set', lastXrecords);
                 var recordForComparison = lastXrecords[CurrentExperiment.comparisonIndex];
                 console.log('comparing against record', recordForComparison);
