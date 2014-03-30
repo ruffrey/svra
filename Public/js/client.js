@@ -1,9 +1,13 @@
 /**
- * Client audio app
+ * # Client audio app
  */
+(function(){})();
 
+
+
+var twoMinutes = 60 * 2 * 1000,    
     /** How often to update the UI */
-var MAG_INTERVAL = 350,
+    MAG_INTERVAL = 498,
     /** Last time the UI was updated with the current dB */
     LAST_UPDATE = +new Date(),
     /** The last captured dB of loudness, near-instantly captured */
@@ -30,11 +34,18 @@ var MAG_INTERVAL = 350,
         continue: function(){}
     };
 
+/**
+ *
+ */
 function SetUiDecibels(d, m) {
     $('span#decibels').text(d.toFixed(2));
     $('span#magnitude').text(m.toFixed(2));
     if(calibrateOn) calibrate_array.push(m);
 }
+
+/**
+ * Perform calibration for 5 seconds.
+ */
 function calibrate() {
 
     console.log("RECALIBRATION START");
@@ -66,7 +77,8 @@ function calibrate() {
 }
 
 /**
- * Calculate Decibels
+ * Calculate decibels
+ * @returns Number
  */
 function Decibels(amplitude, refDB) {
 
@@ -78,6 +90,9 @@ function Decibels(amplitude, refDB) {
     return 20 * log10(amplitude);
 }
 
+/**
+ * Sets db and UI
+ */
 function setRoomMag(val) {
 	ROOM_MAG = val;
     ROOM_DB = Decibels(ROOM_MAG);
@@ -85,10 +100,12 @@ function setRoomMag(val) {
 	$('#room_db').text(ROOM_DB.toFixed(2));
 }
 
+/**
+ * for UI only
+ */
 function clearRoomMag() {
     $('#room_mag').text('----');
 }
-
 
 var audioContext = new AudioContext(),
     audioInput = null,
@@ -100,23 +117,35 @@ var audioContext = new AudioContext(),
     canvasWidth, canvasHeight,
     recIndex = 0;
 
+/**
+ * export as raw wav file
+ */
 function saveAudio() {
     audioRecorder.exportWAV( doneEncoding );
     // could get mono instead by saying
     // audioRecorder.exportMonoWAV( doneEncoding );
 }
 
+/**
+ * draw the wave onto the canvas
+ */
 function drawWave( buffers ) {
     var canvas = document.getElementById( "wavedisplay" );
 
     drawBuffer( canvas.width, canvas.height, canvas.getContext('2d'), buffers[0] );
 }
 
+/**
+ * force the download of the recorded file
+ */
 function doneEncoding( blob ) {
     Recorder.forceDownload( blob, "myRecording" + ((recIndex<10)?"0":"") + recIndex + ".wav" );
     recIndex++;
 }
 
+/**
+ * start recording. handles UI too.
+ */
 function toggleRecording( e ) {
     if ($(e).find('.glyphicon-stop').length) {
         // currently recording
@@ -139,6 +168,9 @@ function toggleRecording( e ) {
     }
 }
 
+/**
+ * i have no idea if this is even in use
+ */
 function convertToMono( input ) {
     var splitter = audioContext.createChannelSplitter(2);
     var merger = audioContext.createChannelMerger(2);
@@ -149,6 +181,9 @@ function convertToMono( input ) {
     return merger;
 }
 
+/**
+ * wtf is this doing?
+ */
 function cancelAnalyserUpdates() {
     window.cancelAnimationFrame( rafID );
     rafID = null;
@@ -215,6 +250,9 @@ function updateAnalysers(time) {
     rafID = window.requestAnimationFrame( updateAnalysers );
 }
 
+/**
+ * is this even being used? mono vs stereo? who cares?
+ */
 function toggleMono() {
     if (audioInput != realAudioInput) {
         audioInput.disconnect();
@@ -228,6 +266,9 @@ function toggleMono() {
     audioInput.connect(inputPoint);
 }
 
+/**
+ * callback function after user successfully allows recording.
+ */
 function gotStream(stream) {
     inputPoint = audioContext.createGain();
 
@@ -251,6 +292,9 @@ function gotStream(stream) {
     updateAnalysers();
 }
 
+/**
+ * prompt user to allow for audio capture
+ */
 function initAudio(callback) {
         if (!navigator.getUserMedia)
             navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
@@ -275,34 +319,31 @@ function initAudio(callback) {
 }
 
 
-
+/**
+ * ## Array.prototype.map
+ * polyfill from Mozilla for `Array.map`, which i love more than a plate of gourmet chocolate
+ */
 if (!Array.prototype.map)
 {
-  Array.prototype.map = function(fun /*, thisArg */)
-  {
-    "use strict";
+    Array.prototype.map = function (fun /*, thisArg */) {
+        "use strict";
 
-    if (this === void 0 || this === null)
-      throw new TypeError();
+        if (this === void 0 || this === null)
+        throw new TypeError();
 
-    var t = Object(this);
-    var len = t.length >>> 0;
-    if (typeof fun !== "function")
-      throw new TypeError();
+        var t = Object(this),
+            len = t.length >>> 0;
 
-    var res = new Array(len);
-    var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
-    for (var i = 0; i < len; i++)
-    {
-      // NOTE: Absolute correctness would demand Object.defineProperty
-      //       be used.  But this method is fairly new, and failure is
-      //       possible only if Object.prototype or Array.prototype
-      //       has a property |i| (very unlikely), so use a less-correct
-      //       but more portable alternative.
-      if (i in t)
-        res[i] = fun.call(thisArg, t[i], i, t);
-    }
+        if (typeof fun !== "function")
+        throw new TypeError();
 
-    return res;
-  };
+        var res = new Array(len),
+            thisArg = arguments.length >= 2 ? arguments[1] : void 0;
+    
+        for (var i = 0; i < len; i++)
+            if (i in t) 
+                res[i] = fun.call(thisArg, t[i], i, t);
+    
+        return res;
+    };
 }
