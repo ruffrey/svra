@@ -24,12 +24,12 @@ From the terminal:
     npm install
     node app
 
-then go to [http://localhost:3333/].
+then go to http://localhost:3333/
 
 
 ## Code documentation
 
-Generate docs from command line with `grunt dox` and view at http://localhost:3333/docs - or http://svra.aws.af.cm
+Generate docs from command line with `grunt dox` and view at http://localhost:3333/docs/ - or http://svra.aws.af.cm
 
 ## Building for windows or mac desktop
 
