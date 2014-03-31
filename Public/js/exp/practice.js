@@ -134,12 +134,12 @@ CurrentExperiment = {
 
     /**
      * ## The internal probability table to be used to determine whether to do an increment.
-     * .25 true
-     * .75 false
+     * .5 true
+     * .5 false
      */
     probabilityData: [
-        [true, 0.25],
-        [false, 0.75]
+        [true, 0.5],
+        [false, 0.5]
     ],
 
 
@@ -154,23 +154,12 @@ CurrentExperiment = {
 
             var currentRecs = Phases.saveExperimentState(pauseTotal || null, sortByLoudest);
 
-            // See if extinction is active
-            if(CurrentExperiment.extinction)
-            {
-                return Phases.extinction();
-            }
-            // stop here if in extinction
+            var thirtySeconds = 30 * 1000;
+            
+            var thirtySecondsPassed = thirtySeconds <= CurrentExperiment.totalTime;
 
 
-            /**
-             * Determining whether to play the sound and increment the score.
-             * If two minutes have passed, follow logic for portion 2 of the experiment. Otherwise, it is portion 1 logic.
-             */
-
-            var twoMinutesHavePassed = twoMinutes <= CurrentExperiment.totalTime;
-
-
-            if(!twoMinutesHavePassed)
+            if(!thirtySecondsPassed)
             {
                 Phases.warmup();
                 return CurrentExperiment.loop(); 
