@@ -33,7 +33,7 @@ Generate docs from command line with `grunt dox` and view at http://localhost:33
 
 ## Building for windows or mac desktop
 
-Just run `grunt`. Uses [node-webkit[(https://github.com/rogerwang/node-webkit) via [grunt-node-webkit-builder](https://www.npmjs.org/package/grunt-node-webkit-builder).
+Just run `grunt`. Uses [node-webkit](https://github.com/rogerwang/node-webkit) via [grunt-node-webkit-builder](https://www.npmjs.org/package/grunt-node-webkit-builder).
 
 
 ## Contributers
