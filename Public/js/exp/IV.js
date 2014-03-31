@@ -153,7 +153,8 @@ CurrentExperiment = {
 
         CurrentExperiment.timeout = setTimeout(function(){
 
-            var currentRecs = Phases.saveExperimentState(pauseTotal || null, sortByLoudest);
+            var currentRecs = Phases.saveExperimentState(pauseTotal || null, 
+                CurrentExperiment.phase == 1 ? sortByQuietest : sortByLoudest);
 
             // See if extinction is active
             if(CurrentExperiment.extinction)

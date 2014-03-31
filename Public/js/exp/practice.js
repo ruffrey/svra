@@ -1,32 +1,194 @@
+/** 
+ * # Experiment I
+ * ## Dependencies
+ * weighted-list.js
+ */
+
 CurrentExperiment = {
 
-    isRunning: false,
+    /** ## Settings
+     */
 
-    timeout: null,
-
-    data: null,
-    totalTime: 0,
-    lastTime: 0,
-    
-    loopInterval: 5000,
-
-
-    maxDuration: 30 * 1000,
-    isPaused: false,
-
-    intervalLoudest: 0,
-    intervalCheck: 500,
-
-    probabilityData: [
-        [true, .25],
-        [false, .75]
+    /**
+     * The first row of data output.
+     */
+    recordHeader: [
+        "ms since start of experiment",
+        "interval value (magnitude)",
+        "5th of 19",
+        "point total",
+        "pause time",
+        "extinction"
     ],
 
-    weightedList: null,
+    /**
+     * How many miliseconds you want a single interval to last.
+     */
+    loopInterval: 5000,
 
+    /** 
+     * How many miliseconds you want the experiment to run in a worst case scenario. 
+     */
+    maxDuration: 90 * 60 * 1000,
+
+    /** 
+     * The check period to use when determining loudest dB during an interval. 
+     */
+    intervalCheck: 500,
+
+    /** 
+     * Extinction must occur for this long before experiment ends. 
+     */
+    quietTime: 15 * 1000,
+
+    /** 
+     * How many records back are used for the comparison? 
+     */
+    comparisonRecordTotal: 19,
+
+    /** 
+     * When comparison records are sorted DESC, what is the index to use as a comparitor? 
+     */
+    comparisonIndex: 4,
+
+    /**
+     * Where is the magnitude value stored for one of this experiment's records?
+     */
+    indexOfMagnitudeValue: 1,
+
+    /** 
+     * How much louder does participant need to be before starting extinction? 
+     */
+    extinctionMultiplier: 1.5,
+
+    /** 
+     * An override max for how loud the participant needs to be before starting extinction. 
+     */
+    extinctionMaxMagnitude: 250,
+    
+
+    /** 
+     * ## Private variables
+     */
+
+    /** 
+     * Is the experiment running right now? 
+     */
+    isRunning: false,
+
+    /** Is the experiment paused right now? */
+    isPaused: false,
+
+    /** 
+     * Timeout variable for CurrentExperiment.loop() 
+     */
+    timeout: null,
+
+    /** 
+     * The in-memory cache of data for this experiment. 
+     * All records get saved in localStorage, too. 
+     */
+    data: null,
+
+    /** 
+     * Total miliseconds elapsed since beginning of experiment. 
+     */
+    totalTime: 0,
+
+    /** 
+     * Is extinction happening? 
+     */
+    extinction: true,
+
+    /** 
+     * Time at which extinction began. 
+     */
+    extinctionStart: 0,
+
+    /** 
+     * Total miliseoncds since extinction started. 
+     */
+    extinctionTime: 0,
+
+    /** 
+     * Quiet time total 
+     */
+    quietTotal: 0,
+
+    /** 
+     * Timestamp in miliseconds of the last time an interval was tallied. 
+     */
+    lastTime: 0,
+    
+    /** 
+     * Loudest dB reading from current interval. 
+     */
+    intervalLoudest: 0,
+
+    /** 
+     * First portion of experiment 
+     */
+    loudestOverFirstPortion: 0,
+
+    
+
+    /**
+     * ## The internal probability table to be used to determine whether to do an increment.
+     * .25 true
+     * .75 false
+     */
+    probabilityData: [
+        [true, 0.25],
+        [false, 0.75]
+    ],
+
+
+    /**
+     *  Main looping function, which calls itself.
+     * 
+     */
+    loop: function(loopTime, pauseTotal){
+
+
+        CurrentExperiment.timeout = setTimeout(function(){
+
+            var currentRecs = Phases.saveExperimentState(pauseTotal || null, sortByLoudest);
+
+            // See if extinction is active
+            if(CurrentExperiment.extinction)
+            {
+                return Phases.extinction();
+            }
+            // stop here if in extinction
+
+
+            /**
+             * Determining whether to play the sound and increment the score.
+             * If two minutes have passed, follow logic for portion 2 of the experiment. Otherwise, it is portion 1 logic.
+             */
+
+            var twoMinutesHavePassed = twoMinutes <= CurrentExperiment.totalTime;
+
+
+            if(!twoMinutesHavePassed)
+            {
+                Phases.warmup();
+                return CurrentExperiment.loop(); 
+            }
+            
+            CurrentExperiment.end();
+
+
+        }, typeof loopTime == 'undefined' ? CurrentExperiment.loopInterval : loopTime);
+
+    },
+
+    /**
+     * Background looping function that keeps track of highest value during an interval.
+     */
     loopIntervalCheck: function() {
         
-        CurrentExperiment.intervalLoudest = Math.max(CurrentExperiment.intervalLoudest, lastCapture);
+        CurrentExperiment.intervalLoudest = Math.max(CurrentExperiment.intervalLoudest, lastMag);
         console.log(CurrentExperiment.intervalLoudest);
 
         if(CurrentExperiment.isRunning)
@@ -38,68 +200,10 @@ CurrentExperiment = {
        
     },
 
-    loopSound: function(loopTime, pauseTotal){
 
-        //console.log("CurrentExperiment.loopSound", new Date() );
-
-        CurrentExperiment.timeout = setTimeout(function(){
-            
-            var wl = new WeightedList(CurrentExperiment.probabilityData);
-            var shouldPlayAndIncrement = JSON.parse(wl.peek()[0]);
-
-            //console.log('Probability:', shouldPlayAndIncrement);
-
-            if(shouldPlayAndIncrement)
-            {
-                PlayBeep();
-                IncrementScore();
-            }
-            
-            CurrentExperiment.totalTime+= (  (+new Date()) - CurrentExperiment.lastTime );
-            CurrentExperiment.lastTime = +new Date();
-
-            //console.log('New record at totalTime', CurrentExperiment.totalTime);
-
-            var intervalValue = null;
-
-            var currentRecs = CurrentExperiment.data.records.get().slice(0);
-            if(currentRecs.length > 10)
-            {
-                intervalValue = 0;
-                var last10records = currentRecs.slice(-10);
-                
-                last10records.forEach( function(r) {
-                    var dB = r[1];
-                    if(dB > intervalValue) intervalValue = dB;
-                });
-
-            }
-                
-            var newDataRec = [ 
-                CurrentExperiment.totalTime, 
-                CurrentExperiment.intervalLoudest, 
-                intervalValue, 
-                SCORE, 
-                pauseTotal || null
-            ];
-            
-            CurrentExperiment.data.records.add(newDataRec);
-            CurrentExperiment.data.save();
-            
-            // reset interval loudest
-            CurrentExperiment.intervalLoudest = 0;
-
-            if(CurrentExperiment.totalTime >= (CurrentExperiment.maxDuration) )
-            {
-                CurrentExperiment.end();
-            }
-            else{
-                CurrentExperiment.loopSound();
-            }
-
-        }, typeof loopTime == 'undefined' ? CurrentExperiment.loopInterval : loopTime);
-
-    },
+    /**
+     * ## Start and Stop functions
+     */
 
 
     end: function(){
@@ -127,23 +231,21 @@ CurrentExperiment = {
         CurrentExperiment.lastTime = +new Date();
         CurrentExperiment.timeout = null;
         CurrentExperiment.intervalLoudest = 0;
+        CurrentExperiment.extinctionTime = 0;
+        CurrentExperiment.extinctionStart = 0;
+        CurrentExperiment.quietTotal = 0;
+        CurrentExperiment.extinction = false;
 
         CurrentExperiment.data = new Experiment({
-            method: "practice"
+            method: "I"
         });
         
-        CurrentExperiment.data.records.add([
-            "ms since start of experiment",
-            "sample of current speech volume in dB",
-            "interval value",
-            "point total",
-            "pause time"
-        ]);
+        CurrentExperiment.data.records.add(CurrentExperiment.recordHeader);
         CurrentExperiment.data.save();
 
         // Now Start
         CurrentExperiment.loopIntervalCheck();
-        CurrentExperiment.loopSound();
+        CurrentExperiment.loop();
 
     },
 
@@ -152,7 +254,6 @@ CurrentExperiment = {
         {
             clearTimeout(CurrentExperiment.timeout);
         }
-        //console.log('CurrentExperiment.pause - loopSound timeout cleared', CurrentExperiment.timeout);
 
         CurrentExperiment.totalTime += (  (+new Date()) - CurrentExperiment.lastTime  );
         CurrentExperiment.isPaused = +new Date();
@@ -167,15 +268,8 @@ CurrentExperiment = {
 
         var wasPausedTime = (+new Date()) - CurrentExperiment.isPaused;
         CurrentExperiment.isPaused = false;
-
-        // console.log(
-        //     'CONTINUE was paused for', 
-        //     wasPausedTime, 'next check in', 
-        //     CurrentExperiment.loopInterval - elapsedThisRound, 
-        //     'ms'
-        // );
         
-        CurrentExperiment.loopSound(CurrentExperiment.loopInterval - elapsedThisRound, wasPausedTime);
+        CurrentExperiment.loop(CurrentExperiment.loopInterval - elapsedThisRound, wasPausedTime);
 
     }
 };

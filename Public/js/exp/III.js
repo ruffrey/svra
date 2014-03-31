@@ -153,7 +153,8 @@ CurrentExperiment = {
 
         CurrentExperiment.timeout = setTimeout(function(){
 
-            var currentRecs = Phases.saveExperimentState(pauseTotal || null, sortByLoudest);
+            var currentRecs = Phases.saveExperimentState(pauseTotal || null, 
+                CurrentExperiment.phase == 1 ? sortByLoudest : sortByQuietest);
 
             // See if extinction is active
             if(CurrentExperiment.extinction)
@@ -192,7 +193,7 @@ CurrentExperiment = {
                     console.log("Moving to Phase II - wanting quieter instead now.");
                     CurrentExperiment.phase = 2;
                     CurrentExperiment.extinctionMaxMagnitude = 120;
-                    CurrentExperiment.extinctionMultiplier = .75
+                    CurrentExperiment.extinctionMultiplier = .75;
                     CurrentExperiment.loop();
                 }
                 else if(extinctionIsReady === false)
