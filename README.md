@@ -18,10 +18,11 @@ Uses HTML5 `localStorage` for data persistence. Download `.csv` of experiment tr
 You'll need [git](http://git-scm.com), [Node.js with npm](http://nodejs.org), and [grunt](http://gruntjs.com/).
 
 From the terminal:
-	git clone https://github.com/ruffrey/svra
-	cd svra
-	npm install
-	node app
+
+    git clone https://github.com/ruffrey/svra
+    cd svra
+    npm install
+    node app
 
 then go to http://localhost:3333
 
