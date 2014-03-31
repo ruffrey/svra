@@ -1,6 +1,6 @@
 ## Shaping vocal response amplitudes
 
-Available at http://svra.aws.af.cm
+Available at http://svra.aws.af.cm.
 
 PhD dissertation research for Jessica Gamba.
 
@@ -24,12 +24,12 @@ From the terminal:
     npm install
     node app
 
-then go to http://localhost:3333/
+then go to [localhost:3333](http://localhost:3333/).
 
 
 ## Code documentation
 
-Generate docs from command line with `grunt dox` and view at http://localhost:3333/docs/ - or http://svra.aws.af.cm
+Generate docs from command line with `grunt dox` and view at [/docs](http://localhost:3333/docs/) - or http://svra.aws.af.cm
 
 ## Building for windows or mac desktop
 
