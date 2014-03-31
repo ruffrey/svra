@@ -24,7 +24,7 @@ From the terminal:
     npm install
     node app
 
-then go to http://localhost:3333
+then go to [http://localhost:3333/].
 
 
 ## Code documentation
