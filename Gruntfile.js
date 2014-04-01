@@ -11,7 +11,7 @@
  */
 var node_webkit = {
   options: {
-      app_name: "SVRA",
+      app_name: "Study",
       credits: './README.md',
       build_dir: './build', // Where the build version of my node-webkit app is saved
       mac: true, // We want to build it for mac
