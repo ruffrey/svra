@@ -18,7 +18,8 @@ CurrentExperiment = {
         "5th of 19",
         "point total",
         "pause time",
-        "extinction"
+        "extinction",
+        "phase"
     ],
 
     /**
@@ -64,7 +65,7 @@ CurrentExperiment = {
     /** 
      * An override max for how loud the participant needs to be before starting extinction. 
      */
-    extinctionMaxMagnitude: 250,
+    extinctionMaxMagnitude: 230,
     
 
     /** 
@@ -279,6 +280,9 @@ CurrentExperiment = {
         CurrentExperiment.extinctionStart = 0;
         CurrentExperiment.quietTotal = 0;
         CurrentExperiment.extinction = false;
+        CurrentExperiment.extinctionMultiplier = 1.5;
+        CurrentExperiment.extinctionMaxMagnitude = 230;
+        CurrentExperiment.phase = 1;
 
         CurrentExperiment.data = new Experiment({
             method: "III"

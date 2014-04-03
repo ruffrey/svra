@@ -49,7 +49,8 @@ Phases.saveExperimentState = function(pauseTotal, sortFunction) {
         CurrentExperiment.intervalValueForComparison, 
         SCORE, 
         pauseTotal || null,
-        CurrentExperiment.extinction
+        CurrentExperiment.extinction,
+        CurrentExperiment.phase || ""
     ];
     CurrentExperiment.data.records.add(newDataRec);
     CurrentExperiment.data.save();

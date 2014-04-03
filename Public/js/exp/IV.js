@@ -18,7 +18,8 @@ CurrentExperiment = {
         "5th of 19",
         "point total",
         "pause time",
-        "extinction"
+        "extinction",
+        "phase"
     ],
 
     /**
@@ -193,7 +194,7 @@ CurrentExperiment = {
                 {
                     console.log("Moving to Phase II!");
                     CurrentExperiment.phase = 2;
-                    CurrentExperiment.extinctionMaxMagnitude = 250;
+                    CurrentExperiment.extinctionMaxMagnitude = 230;
                     CurrentExperiment.extinctionMultiplier = 1.5;
                     CurrentExperiment.loop();
                 }
@@ -281,6 +282,9 @@ CurrentExperiment = {
         CurrentExperiment.extinctionStart = 0;
         CurrentExperiment.quietTotal = 0;
         CurrentExperiment.extinction = false;
+        CurrentExperiment.extinctionMultiplier = .75;
+        CurrentExperiment.extinctionMaxMagnitude = 120;
+        CurrentExperiment.phase = 1;
 
         CurrentExperiment.data = new Experiment({
             method: "IV"

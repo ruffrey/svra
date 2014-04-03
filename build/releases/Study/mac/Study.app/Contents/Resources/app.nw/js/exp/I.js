@@ -64,7 +64,7 @@ CurrentExperiment = {
     /** 
      * An override max for how loud the participant needs to be before starting extinction. 
      */
-    extinctionMaxMagnitude: 250,
+    extinctionMaxMagnitude: 230,
     
 
     /** 

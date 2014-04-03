@@ -428,7 +428,7 @@ var audioContext = new AudioContext(),
         // setting audio source
         var srcId = null, 
             firstAudioInput = null, 
-            sourceOutputHtml = &quot;&lt;h5 style='padding-top:8px'&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;AUDIO SOURCE&lt;br /&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;select id='audioSourceSelection'&gt;&quot;;
+            sourceOutputHtml = &quot;&lt;h5&gt;AUDIO SOURCE&lt;br /&gt;&lt;select id='audioSourceSelection'&gt;&quot;;
         sources.forEach(function(src, arrIndex){
             console.log(src);
             if(!firstAudioInput) if(src.kind == &quot;audio&quot;) firstAudioInput = src.id;
@@ -444,7 +444,7 @@ var audioContext = new AudioContext(),
             }
         });
 
-        $('#secret-controls').append( sourceOutputHtml + &quot;&lt;/select&gt;&lt;/h5&gt;&quot; );
+        $('#home').append( sourceOutputHtml + &quot;&lt;/select&gt;&lt;/h5&gt;&quot; );
         $('#audioSourceSelection').change(function(){
             localStorage.audioSourceLabel = $('#audioSourceSelection option:selected').text();
             location.reload();

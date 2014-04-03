@@ -3,18 +3,16 @@
 	"main": "app.html",
 	"version": "0.9.1",
 	"window": {
-	    "toolbar": true,
-	    "frame": true,
-	    "width": 1000,
-	    "height": 500,
+	    "toolbar": false,
+	    "frame": false,
+	    "width": 1030,
+	    "height": 600,
 	    "position": "center",
 	    "min_width": 500,
 	    "min_height": 400,
-	    "page-cache": true
-	},
-	"webkit": {
-		"plugin": true
-	},
-	"chromium-args": "--enable-webaudio-input"
+	    "page-cache": true,
+	    "single-instance": true,
+	    "kiosk": true
+	}
 
 }

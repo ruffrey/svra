@@ -259,7 +259,8 @@ code {
         CurrentExperiment.intervalValueForComparison, 
         SCORE, 
         pauseTotal || null,
-        CurrentExperiment.extinction
+        CurrentExperiment.extinction,
+        CurrentExperiment.phase || &quot;&quot;
     ];
     CurrentExperiment.data.records.add(newDataRec);
     CurrentExperiment.data.save();

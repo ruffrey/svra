@@ -246,6 +246,35 @@
 	<script src="js/client.js"></script>
 	<script src="js/ui-interactions.js"></script>
 
+	<script>
+		// desktop app specific
+		var fs = require('fs');
 
-  
+		function DownloadData(ix) {
+
+			var data = store.getExperiments(ix);
+
+		    var downloadData = data.records.get().map(function(r) {
+		        return r.join(',');
+		    }).join('\n');
+
+		    $('#export_file input')
+		    .attr('nwsaveas', data.method() + ' ' + (new Date(data.created())).toFormat('YYYY-MM-DD t-HH24_MI') + '.csv')
+		    .click();
+
+	        $('#export_file input').on('change', function (evt) {
+	        	fs.writeFile($(this).val(), downloadData, function(err) {
+				    if(err) {
+				    	alert('Save error: ' + err.toString());
+				       	console.log(err);
+				    } 
+				});
+	        });
+
+			
+		}
+	</script>
+	<div id="export_file" style="display:none">
+	    <input type="file" nwsaveas="" nwworkingdir="/data/input/" />
+	</div>
 </body></html>
