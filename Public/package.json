@@ -10,7 +10,7 @@
 	    "position": "center",
 	    "min_width": 500,
 	    "min_height": 400,
-	    "page-cache": true,
+	    "page-cache": false,
 	    "single-instance": true,
 	    "kiosk": true
 	}
