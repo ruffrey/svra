@@ -190,7 +190,7 @@ Phases.hasLoudnessDecreased = function(currentRecs) {
         warmupAverage = Phases.calculateWarmupAverage(currentRecs),
 
 		/** Set the cutoff point for switching to extinction. */
-        loudnessCutoffForExinction = Math.min(
+        loudnessCutoffForExinction = Math.max(
                 warmupAverage * CurrentExperiment.extinctionMultiplier,
                 CurrentExperiment.extinctionMaxMagnitude
         );

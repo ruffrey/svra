@@ -65,7 +65,7 @@ CurrentExperiment = {
     /** 
      * An override max for how loud the participant needs to be before starting extinction. 
      */
-    extinctionMaxMagnitude: 120,
+    extinctionMaxMagnitude: 100,
     
 
     /** 
@@ -283,7 +283,7 @@ CurrentExperiment = {
         CurrentExperiment.quietTotal = 0;
         CurrentExperiment.extinction = false;
         CurrentExperiment.extinctionMultiplier = .75;
-        CurrentExperiment.extinctionMaxMagnitude = 120;
+        CurrentExperiment.extinctionMaxMagnitude = 100;
         CurrentExperiment.phase = 1;
 
         CurrentExperiment.data = new Experiment({

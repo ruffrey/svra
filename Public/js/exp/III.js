@@ -193,7 +193,7 @@ CurrentExperiment = {
                 {
                     console.log("Moving to Phase II - wanting quieter instead now.");
                     CurrentExperiment.phase = 2;
-                    CurrentExperiment.extinctionMaxMagnitude = 120;
+                    CurrentExperiment.extinctionMaxMagnitude = 100;
                     CurrentExperiment.extinctionMultiplier = .75;
                     CurrentExperiment.loop();
                 }
