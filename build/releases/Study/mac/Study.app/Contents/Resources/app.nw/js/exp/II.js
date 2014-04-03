@@ -1,5 +1,5 @@
 /** 
- * # Experiment I
+ * # Experiment II
  * ## Dependencies
  * weighted-list.js
  */
