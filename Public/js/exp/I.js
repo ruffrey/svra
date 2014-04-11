@@ -44,12 +44,12 @@ CurrentExperiment = {
     /** 
      * How many records back are used for the comparison? 
      */
-    comparisonRecordTotal: 19,
+    comparisonRecordTotal: 11,
 
     /** 
      * When comparison records are sorted DESC, what is the index to use as a comparitor? 
      */
-    comparisonIndex: 4,
+    comparisonIndex: 2,
 
     /**
      * Where is the magnitude value stored for one of this experiment's records?
@@ -59,7 +59,7 @@ CurrentExperiment = {
     /** 
      * How much louder does participant need to be before starting extinction? 
      */
-    extinctionMultiplier: 1.5,
+    extinctionMultiplier: 1.25,
 
     /** 
      * An override max for how loud the participant needs to be before starting extinction. 
