@@ -194,7 +194,7 @@ CurrentExperiment = {
                 {
                     console.log("Moving to Phase II!");
                     CurrentExperiment.phase = 2;
-                    CurrentExperiment.extinctionMaxMagnitude = 230;
+                    CurrentExperiment.extinctionMaxMagnitude = 250;
                     CurrentExperiment.extinctionMultiplier = 1.25;
                     CurrentExperiment.loop();
                 }
