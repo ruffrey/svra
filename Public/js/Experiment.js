@@ -86,6 +86,7 @@ var store = {
 // @class Experiment
 function Experiment(props) {
 
+    var _this = this;
 
     /* Private - properties */
     var _method = null;
@@ -197,7 +198,7 @@ function Experiment(props) {
 
     this.remove = function() {
         store.removeExperiment(_storageIndex);
-        this = null;
+        _this = null;
     };
 
     if(props)
